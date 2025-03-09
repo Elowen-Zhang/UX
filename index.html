@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>睡眠APP原型设计</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f7;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: #1d1d1f;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            font-size: 36px;
+        }
+        
+        h2 {
+            margin-top: 40px;
+            font-size: 28px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            margin-top: 30px;
+            font-size: 22px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .screens-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .screen {
+            width: 300px;
+            height: 600px;
+            background-color: #fff;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 10px solid #1d1d1f;
+            border-width: 10px 5px;
+        }
+        
+        .screen-header {
+            height: 50px;
+            background-color: #f8f8f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .screen-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .screen-content {
+            height: calc(100% - 110px);
+            overflow-y: auto;
+            padding: 15px;
+        }
+        
+        .screen-footer {
+            height: 60px;
+            background-color: #fff;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 20%;
+        }
+        
+        .tab-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #ddd;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+        
+        .tab-text {
+            font-size: 10px;
+            color: #666;
+        }
+        
+        .tab.active .tab-icon {
+            background-color: #3a86ff;
+        }
+        
+        .tab.active .tab-text {
+            color: #3a86ff;
+            font-weight: 600;
+        }
+        
+        .card {
+            background-color: #f8f8f8;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .sleep-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+            width: 30%;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3a86ff;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .chart {
+            height: 150px;
+            background-color: #eee;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-end;
+            padding: 10px;
+            gap: 5px;
+        }
+        
+        .chart-bar {
+            flex-grow: 1;
+            background-color: #3a86ff;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .sound-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #f0f7ff;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .sound-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #3a86ff;
+            border-radius: 20px;
+            margin-right: 15px;
+        }
+        
+        .sound-info {
+            flex-grow: 1;
+        }
+        
+        .sound-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .sound-duration {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .button {
+            background-color: #3a86ff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .habit-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .habit-check {
+            width: 24px;
+            height: 24px;
+            border-radius: 12px;
+            border: 2px solid #3a86ff;
+            margin-right: 15px;
+        }
+        
+        .habit-check.checked {
+            background-color: #3a86ff;
+        }
+        
+        .habit-info {
+            flex-grow: 1;
+        }
+        
+        .habit-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .habit-time {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .community-post {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background-color: #ddd;
+            margin-right: 10px;
+        }
+        
+        .post-user {
+            font-weight: 600;
+        }
+        
+        .post-time {
+            font-size: 12px;
+            color: #666;
+            margin-left: auto;
+        }
+        
+        .post-content {
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .post-action {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .action-icon {
+            width: 16px;
+            height: 16px;
+            background-color: #ddd;
+            border-radius: 8px;
+            margin-right: 5px;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .profile-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            background-color: #ddd;
+            margin-right: 15px;
+        }
+        
+        .profile-info {
+            flex-grow: 1;
+        }
+        
+        .profile-name {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .profile-bio {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #ddd;
+            border-radius: 12px;
+            margin-right: 15px;
+        }
+        
+        .menu-title {
+            flex-grow: 1;
+        }
+        
+        .menu-arrow {
+            color: #ccc;
+        }
+        
+        .achievement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            background-color: #f0f7ff;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .achievement-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #3a86ff;
+            border-radius: 20px;
+            margin-right: 15px;
+        }
+        
+        .achievement-info {
+            flex-grow: 1;
+        }
+        
+        .achievement-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .achievement-desc {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            margin-top: 25px;
+            font-size: 18px;
+        }
+        
+        .onboarding-step {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .onboarding-image {
+            width: 150px;
+            height: 150px;
+            background-color: #eee;
+            border-radius: 75px;
+            margin: 0 auto 20px;
+        }
+        
+        .onboarding-title {
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .onboarding-desc {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: white;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>睡眠APP原型设计</h1>
+        
+        <h2>引导页面</h2>
+        <div class="screens-container">
+            <!-- 欢迎页 -->
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-title">欢迎</div>
+                </div>
+                <div class="screen-content">
+                    <div class="onboarding-step">
+                        <div class="onboarding-image"></div>
+                        <div class="onboarding-title">欢迎使用睡眠助手</div>
+                        <div class="onboarding-desc">我们将帮助你了解并改善你的睡眠质量，让你每天精力充沛。</div>
+                        <div class="button">开始使用</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 用户信息收集 -->
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-title">基本信息</div>
+                </div>
+                <div class="screen-content">
+                    <div class="form-group">
+                        <label class="form-label">你的名字</label>
+                        <input type="text" class="form-input" placeholder="请输入你的名字">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">年龄</label>
+                        <input type="number" class="form-input" placeholder="请输入你的年龄">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">性别</label>
+                        <select class="form-select">
+                            <option>请选择</option>
+                            <option>男</option>
+                            <option>女</option>
+                            <option>其他</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">你通常几点入睡？</label>
+                        <select class="form-select">
+                            <option>请选择</option>
+                            <option>21:00 - 22:00</option>
+                            <option>22:00 - 23:00</option>
+                            <option>23:00 - 00:00</option>
+                            <option>00:00 以后</option>
+                        </select>
+                    </div>
+                    <div class="button">下一步</div>
+                </div>
+            </div>
+            
+            <!-- 睡眠目标设置 -->
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-title">设置目标</div>
+                </div>
+                <div class="screen-content">
+                    <div class="form-group">
+                        <label class="form-label">你希望每天睡多久？</label>
+                        <select class="form-select">
+                            <option>请选择</option>
+                            <option>6小时</option>
+                            <option>7小时</option>
+                            <option>8小时</option>
+                            <option>9小时</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">你有什么睡眠问题？</label>
+                        <select class="form-select">
+                            <option>请选择</option>
+                            <option>入睡困难</option>
+                            <option>睡眠浅</option>
+                            <option>早醒</option>
+                            <option>睡眠不规律</option>
+                            <option>无特别问题</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">你的睡眠目标是什么？</label>
+                        <select class="form-select">
+                            <option>请选择</option>
+                            <option>改善睡眠质量</option>
+                            <option>缩短入睡时间</option>
+                            <option>建立规律作息</option>
+                            <option>增加睡眠时长</option>
+                        </select>
+                    </div>
+                    <div class="button">完成设置</div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>主要功能页面</h2>
+        <div class="screens-container">
+            <!-- 首页/仪表盘 -->
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-title">首页</div>
+                </div>
+                <div class="screen-content">
+                    <div class="card">
+                        <div class="card-title">昨晚睡眠</div>
+                        <div class="sleep-stats">
+                            <div class="stat">
+                                <div class="stat-value">7.5h</div>
+                                <div class="stat-label">睡眠时长</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">85%</div>
+                                <div class="stat-label">睡眠质量</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">15m</div>
+                                <div class="stat-label">入睡时间</div>
+                            </div>
+                        </div>
+                        <div class="chart">
+                            <div class="chart-bar" style="height: 30%;"></div>
+                            <div class="chart-bar" style="height: 60%;"></div>
+                            <div class="chart-bar" style="height: 90%;"></div>
+                            <div class="chart-bar" style="height: 70%;"></div>
+                            <div class="chart-bar" style="height: 40%;"></div>
+                            <div class="chart-bar" style="height: 20%;"></div>
+                            <div class="chart-bar" style="height: 50%;"></div>
+                        </div>
+                        <div class="button">查看详细报告</div>
+                    </div>
+                    
+                    <div class="section-title">今日建议</div>
+                    <div class="card">
+                        <div class="card-title">睡前放松</div>
+                        <p>今晚尝试在睡前进行10分钟的冥想，有助于放松身心，更快入睡。</p>
+                        <div class="button">开始冥想</div>
+                    </div>
+                    
+                    <div class="section-title">睡眠习惯</div>
+                    <div class="habit-card">
+                        <div class="habit-check checked"></div>
+                        <div class="habit-info">
+                            <div class="habit-title">避免咖啡因</div>
+                            <div class="habit-time">下午2点后</div>
+                        </div>
+                    </div>
+                    <div class="habit-card">
+                        <div class="habit-check"></div>
+                        <div class="habit-info">
+                            <div class="habit-title">睡前阅读</div>
+                            <div class="habit-time">晚上10点</div>
+                        </div>
+                    </div>
+                    <div class="habit-card">
+                        <div class="habit-check"></div>
+                        <div class="habit-info">
+                            <div class="habit-title">准时就寝</div>
+                            <div class="habit-time">晚上11点</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-footer">
+                    <div class="tab active">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">首页</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">睡眠</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">声音</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">社区</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">我的</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 睡眠分析页 -->
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-title">睡眠分析</div>
+                </div>
+                <div class="screen-content">
+                    <div class="card">
+                        <div class="card-title">睡眠周期</div>
+                        <div class="chart" style="height: 200px;">
+                            <!-- 睡眠周期图表 -->
+                        </div>
+                        <div class="sleep-stats">
+                            <div class="stat">
+                                <div class="stat-value">1.5h</div>
+                                <div class="stat-label">深度睡眠</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">4h</div>
+                                <div class="stat-label">浅度睡眠</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">2h</div>
+                                <div class="stat-label">REM睡眠</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">睡眠趋势</div>
+                    <div class="card">
+                        <div class="card-title">过去7天</div>
+                        <div class="chart">
+                            <div class="chart-bar" style="height: 60%;"></div>
+                            <div class="chart-bar" style="height: 70%;"></div>
+                            <div class="chart-bar" style="height: 50%;"></div>
+                            <div class="chart-bar" style="height: 80%;"></div>
+                            <div class="chart-bar" style="height: 75%;"></div>
+                            <div class="chart-bar" style="height: 65%;"></div>
+                            <div class="chart-bar" style="height: 85%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">睡眠洞察</div>
+                    <div class="card">
+                        <div class="card-title">你的睡眠比上周提高了10%</div>
+                        <p>你的深度睡眠时间增加，这对身体恢复非常有益。继续保持规律的睡眠时间，可以进一步提高睡眠质量。</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">入睡时间缩短</div>
+                        <p>本周你的平均入睡时间从25分钟缩短到15分钟，睡前放松活动起到了很好的效果。</p>
+                    </div>
+                </div>
+                <div class="screen-footer">
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">首页</div>
+                    </div>
+                    <div class="tab active">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">睡眠</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">声音</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">社区</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">我的</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 声音/冥想页 -->
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-title">睡眠声音</div>
+                </div>
+                <div class="screen-content">
+                    <div class="section-title">推荐</div>
+                    <div class="sound-card">
+                        <div class="sound-icon"></div>
+                        <div class="sound-info">
+                            <div class="sound-title">雨声</div>
+                            <div class="sound-duration">30分钟</div>
+                        </div>
+                    </div>
+                    <div class="sound-card">
+                        <div class="sound-icon"></div>
+                        <div class="sound-info">
+                            <div class="sound-title">深度放松冥想</div>
+                            <div class="sound-duration">15分钟</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">自然声音</div>
+                    <div class="sound-card">
+                        <div class="sound-icon"></div>
+                        <div class="sound-info">
+                            <div class="sound-title">海浪</div>
+                            <div class="sound-duration">60分钟</div>
+                        </div>
+                    </div>
+                    <div class="sound-card">
+                        <div class="sound-icon"></div>
+                        <div class="sound-info">
+                            <div class="sound-title">森林</div>
+                            <div class="sound-duration">45分钟</div>
+                        </div>
+                    </div>
+                    <div class="sound-card">
+                        <div class="sound-icon"></div>
+                        <div class="sound-info">
+                            <div class="sound-title">溪流</div>
+                            <div class="sound-duration">60分钟</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">冥想引导</div>
+                    <div class="sound-card">
+                        <div class="sound-icon"></div>
+                        <div class="sound-info">
+                            <div class="sound-title">睡前放松</div>
+                            <div class="sound-duration">10分钟</div>
+                        </div>
+                    </div>
+                    <div class="sound-card">
+                        <div class="sound-icon"></div>
+                        <div class="sound-info">
+                            <div class="sound-title">身体扫描</div>
+                            <div class="sound-duration">20分钟</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-footer">
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">首页</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">睡眠</div>
+                    </div>
+                    <div class="tab active">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">声音</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">社区</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">我的</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 社区页面 -->
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-title">睡眠社区</div>
+                </div>
+                <div class="screen-content">
+                    <div class="community-post">
+                        <div class="post-header">
+                            <div class="post-avatar"></div>
+                            <div class="post-user">李明</div>
+                            <div class="post-time">2小时前</div>
+                        </div>
+                        <div class="post-content">
+                            最近尝试了睡前20分钟阅读，效果很好，入睡时间从原来的30分钟缩短到了10分钟左右，推荐大家尝试！
+                        </div>
+                        <div class="post-actions">
+                            <div class="post-action">
+                                <div class="action-icon"></div>
+                                <span>45</span>
+                            </div>
+                            <div class="post-action">
+                                <div class="action-icon"></div>
+                                <span>12条评论</span>
+                            </div>
+                            <div class="post-action">
+                                <div class="action-icon"></div>
+                                <span>分享</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="community-post">
+                        <div class="post-header">
+                            <div class="post-avatar"></div>
+                            <div class="post-user">张华</div>
+                            <div class="post-time">昨天</div>
+                        </div>
+                        <div class="post-content">
+                            有人和我一样有睡眠焦虑的问题吗？总是担心睡不着，结果越担心越睡不着...有什么好方法吗？
+                        </div>
+                        <div class="post-actions">
+                            <div class="post-action">
+                                <div class="action-icon"></div>
+                                <span>32</span>
+                            </div>
+                            <div class="post-action">
+                                <div class="action-icon"></div>
+                                <span>28条评论</span>
+                            </div>
+                            <div class="post-action">
+                                <div class="action-icon"></div>
+                                <span>分享</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="community-post">
+                        <div class="post-header">
+                            <div class="post-avatar"></div>
+                            <div class="post-user">王医生</div>
+                            <div class="post-time">3天前</div>
+                        </div>
+                        <div class="post-content">
+                            【睡眠小知识】深度睡眠通常在入睡后的前三个小时最多，所以保证这段时间的睡眠质量非常重要。建议在睡前避免使用电子设备，保持卧室安静、黑暗和凉爽。
+                        </div>
+                        <div class="post-actions">
+                            <div class="post-action">
+                                <div class="action-icon"></div>
+                                <span>128</span>
+                            </div>
+                            <div class="post-action">
+                                <div class="action-icon"></div>
+                                <span>15条评论</span>
+                            </div>
+                            <div class="post-action">
+                                <div class="action-icon"></div>
+                                <span>分享</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">热门话题</div>
+                    <div class="card">
+                        <div class="card-title">#睡前放松方法</div>
+                        <p>1,253人正在讨论</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">#如何应对失眠</div>
+                        <p>876人正在讨论</p>
+                    </div>
+                </div>
+                <div class="screen-footer">
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">首页</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">睡眠</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">声音</div>
+                    </div>
+                    <div class="tab active">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">社区</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">我的</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 个人中心页 -->
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-title">个人中心</div>
+                </div>
+                <div class="screen-content">
+                    <div class="profile-header">
+                        <div class="profile-avatar"></div>
+                        <div class="profile-info">
+                            <div class="profile-name">陈小明</div>
+                            <div class="profile-bio">睡眠质量提升中...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">睡眠目标</div>
+                        <div class="sleep-stats">
+                            <div class="stat">
+                                <div class="stat-value">8h</div>
+                                <div class="stat-label">目标时长</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">23:00</div>
+                                <div class="stat-label">目标入睡</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">85%</div>
+                                <div class="stat-label">完成率</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">我的成就</div>
+                    <div class="achievement">
+                        <div class="achievement-icon"></div>
+                        <div class="achievement-info">
+                            <div class="achievement-title">连续记录</div>
+                            <div class="achievement-desc">连续记录睡眠7天</div>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon"></div>
+                        <div class="achievement-info">
+                            <div class="achievement-title">深度睡眠</div>
+                            <div class="achievement-desc">深度睡眠达到2小时</div>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon"></div>
+                        <div class="achievement-info">
+                            <div class="achievement-title">早睡达人</div>
+                            <div class="achievement-desc">连续5天在23:00前入睡</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">设置</div>
+                    <div class="menu-item">
+                        <div class="menu-icon"></div>
+                        <div class="menu-title">个人资料</div>
+                        <div class="menu-arrow">></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-icon"></div>
+                        <div class="menu-title">睡眠目标</div>
+                        <div class="menu-arrow">></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-icon"></div>
+                        <div class="menu-title">提醒设置</div>
+                        <div class="menu-arrow">></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-icon"></div>
+                        <div class="menu-title">隐私设置</div>
+                        <div class="menu-arrow">></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-icon"></div>
+                        <div class="menu-title">帮助与反馈</div>
+                        <div class="menu-arrow">></div>
+                    </div>
+                </div>
+                <div class="screen-footer">
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">首页</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">睡眠</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">声音</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">社区</div>
+                    </div>
+                    <div class="tab active">
+                        <div class="tab-icon"></div>
+                        <div class="tab-text">我的</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>功能详情页面</h2>
+        <div class="screens-container">
+            <!-- 声音播放页 -->
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-title">正在播放</div>
+                </div>
+                <div class="screen-content" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+                    <div style="text-align: center; padding-top: 40px;">
+                        <div style="width: 200px; height: 200px; background-color: #3a86ff; border-radius: 100px; margin: 0 auto 30px;"></div>
+                        <div style="font-size: 24px; font-weight: 600; margin-bottom: 10px;">雨声</div>
+                        <div style="color: #666; margin-bottom: 40px;">自然声音</div>
+                        
+                        <div style="width: 100%; height: 4px; background-color: #eee; margin-bottom: 10px; position: relative;">
+                            <div style="position: absolute; left: 0; top: 0; height: 100%; width: 30%; background-color: #3a86ff;"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 40px;">
+                            <div style="color: #666;">9:15</div>
+                            <div style="color: #666;">30:00</div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: center; align-items: center; gap: 30px;">
+                            <div style="width: 40px; height: 40px; background-color: #ddd; border-radius: 20px;"></div>
+                            <div style="width: 60px; height: 60px; background-color: #3a86ff; border-radius: 30px;"></div>
+                            <div style="width: 40px; height: 40px; background-color: #ddd; border-radius: 20px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="padding: 20px;">
+                        <div class="card">
+                            <div class="card-title">定时关闭</div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                                <div style="padding: 8px 15px; background-color: #3a86ff; color: white; border-radius: 20px; font-size: 14px;">30分钟</div>
+                                <div style="padding: 8px 15px; background-color: #eee; border-radius: 20px; font-size: 14px;">1小时</div>
+                                <div style="padding: 8px 15px; background-color: #eee; border-radius: 20px; font-size: 14px;">2小时</div>
+                                <div style="padding: 8px 15px; background-color: #eee; border-radius: 20px; font-size: 14px;">不限</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 睡眠记录页 -->
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-title">记录睡眠</div>
+                </div>
+                <div class="screen-content">
+                    <div style="text-align: center; padding: 30px 0;">
+                        <div style="font-size: 18px; margin-bottom: 10px;">昨晚睡得怎么样？</div>
+                        <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 30px;">
+                            <div style="width: 50px; height: 50px; background-color: #eee; border-radius: 25px;"></div>
+                            <div style="width: 50px; height: 50px; background-color: #eee; border-radius: 25px;"></div>
+                            <div style="width: 50px; height: 50px; background-color: #3a86ff; border-radius: 25px;"></div>
+                            <div style="width: 50px; height: 50px; background-color: #eee; border-radius: 25px;"></div>
+                            <div style="width: 50px; height: 50px; background-color: #eee; border-radius: 25px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">入睡时间</label>
+                        <input type="text" class="form-input" value="23:15">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">起床时间</label>
+                        <input type="text" class="form-input" value="07:30">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">你有醒来的情况吗？</label>
+                        <select class="form-select">
+                            <option>没有</option>
+                            <option selected>醒来1-2次</option>
+                            <option>醒来3次以上</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">备注</label>
+                        <textarea class="form-input" style="height: 80px;" placeholder="记录一下影响睡眠的因素..."></textarea>
+                    </div>
+                    
+                    <div class="button">保存记录</div>
+                </div>
+            </div>
+            
+            <!-- 睡眠习惯页 -->
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-title">睡眠习惯</div>
+                </div>
+                <div class="screen-content">
+                    <div class="section-title">我的习惯</div>
+                    <div class="habit-card">
+                        <div class="habit-check checked"></div>
+                        <div class="habit-info">
+                            <div class="habit-title">避免咖啡因</div>
+                            <div class="habit-time">下午2点后</div>
+                        </div>
+                    </div>
+                    <div class="habit-card">
+                        <div class="habit-check"></div>
+                        <div class="habit-info">
+                            <div class="habit-title">睡前阅读</div>
+                            <div class="habit-time">晚上10点</div>
+                        </div>
+                    </div>
+                    <div class="habit-card">
+                        <div class="habit-check"></div>
+                        <div class="habit-info">
+                            <div class="habit-title">准时就寝</div>
+                            <div class="habit-time">晚上11点</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">推荐习惯</div>
+                    <div class="card">
+                        <div class="card-title">睡前1小时不用电子设备</div>
+                        <p>蓝光会抑制褪黑素的分泌，影响入睡。</p>
+                        <div class="button">添加习惯</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">固定起床时间</div>
+                        <p>即使周末也保持相同的起床时间，有助于建立规律的生物钟。</p>
+                        <div class="button">添加习惯</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">睡前热水澡</div>
+                        <p>睡前1-2小时洗个热水澡，可以帮助身体降温，促进入睡。</p>
+                        <div class="button">添加习惯</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
