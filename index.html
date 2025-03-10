@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>睡眠APP - 睡眠报告</title>
+    <title>睡眠APP - 睡眠集市与个人中心</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script>
@@ -87,24 +87,22 @@
         .content::-webkit-scrollbar {
             display: none;
         }
-        .sleep-stage {
-            height: 20px;
-            margin: 2px 0;
-            border-radius: 10px;
+        .product-card {
+            flex: 0 0 auto;
+            width: 160px;
         }
-        .chart-bar {
-            width: 8px;
-            border-radius: 4px;
-            background-color: #7c3aed;
+        .category-item {
+            flex: 0 0 auto;
+            width: 80px;
         }
     </style>
 </head>
 <body class="bg-gray-100 p-4">
     <div class="flex flex-wrap justify-center">
-        <!-- 日报告页面 -->
+        <!-- 睡眠集市页面 -->
         <div class="screen">
             <!-- 背景图片 -->
-            <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="星空背景" class="full-bg">
+            <img src="https://images.unsplash.com/photo-1572025442646-866d16c84a54?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="星空背景" class="full-bg">
             <div class="overlay"></div>
             
             <!-- 状态栏 -->
@@ -121,490 +119,261 @@
             <div class="content px-6 py-4">
                 <!-- 顶部导航 -->
                 <div class="flex justify-between items-center mb-6">
-                    <h1 class="text-2xl font-light text-white">睡眠报告</h1>
+                    <h1 class="text-2xl font-light text-white">睡眠集市</h1>
                     <div class="flex space-x-2">
                         <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                            <i class="fas fa-share-alt"></i>
+                            <i class="fas fa-search"></i>
                         </button>
                         <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                            <i class="fas fa-ellipsis-h"></i>
+                            <i class="fas fa-shopping-cart"></i>
                         </button>
                     </div>
                 </div>
                 
-                <!-- 日期选择器 -->
-                <div class="flex justify-between items-center mb-6">
-                    <button class="w-8 h-8 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="text-center">
-                        <p class="text-white font-medium">2023年5月21日</p>
-                        <p class="text-soft-lavender text-xs">星期日</p>
-                    </div>
-                    <button class="w-8 h-8 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-                
-                <!-- 报告类型选择 -->
-                <div class="flex space-x-2 mb-6 overflow-x-auto pb-2">
-                    <button class="px-4 py-2 bg-lavender text-white rounded-full text-sm whitespace-nowrap">日报告</button>
-                    <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">周报告</button>
-                    <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">月报告</button>
-                    <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">睡眠分析</button>
-                </div>
-                
-                <!-- 睡眠概览 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                    <h2 class="text-lg font-medium text-white mb-4">睡眠概览</h2>
-                    <div class="flex justify-between mb-6">
-                        <div class="text-center">
-                            <p class="text-3xl font-light text-white mb-1">7.5</p>
-                            <p class="text-soft-lavender text-xs">睡眠时长(小时)</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-3xl font-light text-white mb-1">86</p>
-                            <p class="text-soft-lavender text-xs">睡眠质量(%)</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-3xl font-light text-white mb-1">92</p>
-                            <p class="text-soft-lavender text-xs">睡眠效率(%)</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-between text-center text-xs text-soft-lavender mb-2">
-                        <span>入睡</span>
-                        <span>浅睡</span>
-                        <span>深睡</span>
-                        <span>REM</span>
-                        <span>清醒</span>
-                    </div>
-                    <div class="flex mb-4">
-                        <div class="sleep-stage bg-light-lavender opacity-40" style="width: 10%;"></div>
-                        <div class="sleep-stage bg-light-lavender opacity-60" style="width: 30%;"></div>
-                        <div class="sleep-stage bg-lavender" style="width: 25%;"></div>
-                        <div class="sleep-stage bg-light-lavender opacity-80" style="width: 20%;"></div>
-                        <div class="sleep-stage bg-light-lavender opacity-30" style="width: 15%;"></div>
-                    </div>
-                    <div class="flex justify-between text-xs text-soft-lavender">
-                        <span>23:30</span>
-                        <span>07:00</span>
+                <!-- 促销横幅 -->
+                <div class="relative mb-6 rounded-2xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1511295742362-92c96b1cf484?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=150&q=80" alt="促销横幅" class="w-full h-36 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-r from-deep-blue to-transparent opacity-70"></div>
+                    <div class="absolute top-0 left-0 p-4 w-2/3">
+                        <p class="text-soft-lavender text-sm mb-1">限时优惠</p>
+                        <h2 class="text-white text-xl font-medium mb-2">高级睡眠套装</h2>
+                        <p class="text-soft-lavender text-xs mb-3">包含智能监测器、助眠精油和冥想课程</p>
+                        <button class="px-3 py-1 bg-lavender text-white text-xs rounded-lg">
+                            立即查看
+                        </button>
                     </div>
                 </div>
                 
-                <!-- 睡眠阶段详情 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                    <h2 class="text-lg font-medium text-white mb-4">睡眠阶段详情</h2>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <div class="w-3 h-3 rounded-full bg-light-lavender opacity-40 mr-3"></div>
-                            <div class="flex-1">
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">入睡</p>
-                                    <p class="text-soft-lavender text-sm">45分钟</p>
-                                </div>
-                                <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-light-lavender opacity-40 rounded-full" style="width: 10%;"></div>
-                                </div>
+                <!-- 分类导航 -->
+                <div class="mb-8">
+                    <div class="flex overflow-x-auto space-x-4 pb-4">
+                        <div class="category-item text-center">
+                            <div class="w-16 h-16 mx-auto rounded-full bg-ocean bg-opacity-30 flex items-center justify-center text-white mb-2 backdrop-blur-sm">
+                                <i class="fas fa-mobile-alt text-xl"></i>
                             </div>
+                            <p class="text-xs text-white">智能设备</p>
                         </div>
-                        <div class="flex items-center">
-                            <div class="w-3 h-3 rounded-full bg-light-lavender opacity-60 mr-3"></div>
-                            <div class="flex-1">
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">浅睡</p>
-                                    <p class="text-soft-lavender text-sm">2小时15分钟</p>
-                                </div>
-                                <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-light-lavender opacity-60 rounded-full" style="width: 30%;"></div>
-                                </div>
+                        <div class="category-item text-center">
+                            <div class="w-16 h-16 mx-auto rounded-full bg-ocean bg-opacity-30 flex items-center justify-center text-white mb-2 backdrop-blur-sm">
+                                <i class="fas fa-spa text-xl"></i>
                             </div>
+                            <p class="text-xs text-white">精油香薰</p>
                         </div>
-                        <div class="flex items-center">
-                            <div class="w-3 h-3 rounded-full bg-lavender mr-3"></div>
-                            <div class="flex-1">
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">深睡</p>
-                                    <p class="text-soft-lavender text-sm">1小时52分钟</p>
-                                </div>
-                                <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-lavender rounded-full" style="width: 25%;"></div>
-                                </div>
+                        <div class="category-item text-center">
+                            <div class="w-16 h-16 mx-auto rounded-full bg-ocean bg-opacity-30 flex items-center justify-center text-white mb-2 backdrop-blur-sm">
+                                <i class="fas fa-headphones text-xl"></i>
                             </div>
+                            <p class="text-xs text-white">音频内容</p>
                         </div>
-                        <div class="flex items-center">
-                            <div class="w-3 h-3 rounded-full bg-light-lavender opacity-80 mr-3"></div>
-                            <div class="flex-1">
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">REM</p>
-                                    <p class="text-soft-lavender text-sm">1小时30分钟</p>
-                                </div>
-                                <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-light-lavender opacity-80 rounded-full" style="width: 20%;"></div>
-                                </div>
+                        <div class="category-item text-center">
+                            <div class="w-16 h-16 mx-auto rounded-full bg-ocean bg-opacity-30 flex items-center justify-center text-white mb-2 backdrop-blur-sm">
+                                <i class="fas fa-bed text-xl"></i>
                             </div>
+                            <p class="text-xs text-white">床上用品</p>
                         </div>
-                        <div class="flex items-center">
-                            <div class="w-3 h-3 rounded-full bg-light-lavender opacity-30 mr-3"></div>
-                            <div class="flex-1">
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">清醒</p>
-                                    <p class="text-soft-lavender text-sm">1小时8分钟</p>
-                                </div>
-                                <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-light-lavender opacity-30 rounded-full" style="width: 15%;"></div>
-                                </div>
+                        <div class="category-item text-center">
+                            <div class="w-16 h-16 mx-auto rounded-full bg-ocean bg-opacity-30 flex items-center justify-center text-white mb-2 backdrop-blur-sm">
+                                <i class="fas fa-book text-xl"></i>
                             </div>
+                            <p class="text-xs text-white">睡眠课程</p>
                         </div>
                     </div>
                 </div>
                 
-                <!-- 睡眠建议 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                    <h2 class="text-lg font-medium text-white mb-4">今日睡眠建议</h2>
-                    <div class="space-y-4">
-                        <div class="flex">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
-                                <i class="fas fa-moon"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-white font-medium mb-1">提前入睡</h3>
-                                <p class="text-soft-lavender text-sm">您的深度睡眠比例略低，建议今晚提前30分钟入睡，增加深度睡眠时间。</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
-                                <i class="fas fa-temperature-low"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-white font-medium mb-1">调整卧室温度</h3>
-                                <p class="text-soft-lavender text-sm">您的睡眠中有多次短暂清醒，可能与室温有关。建议将卧室温度调整至18-20℃。</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
-                                <i class="fas fa-volume-up"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-white font-medium mb-1">尝试白噪音</h3>
-                                <p class="text-soft-lavender text-sm">使用白噪音可以掩盖环境噪音，帮助您更快入睡并减少夜间醒来次数。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 产品推荐 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
+                <!-- 为您推荐 -->
+                <div class="mb-8">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-lg font-medium text-white">为您推荐</h2>
-                        <a href="#" class="text-lavender text-sm">查看全部</a>
+                        <a href="#" class="text-lavender text-xs">查看全部</a>
                     </div>
-                    <div class="space-y-4">
-                        <div class="flex bg-ocean bg-opacity-30 rounded-2xl p-3">
-                            <div class="w-20 h-20 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
-                            <div class="flex-1">
-                                <h3 class="text-white font-medium mb-1">智能睡眠监测器</h3>
-                                <p class="text-soft-lavender text-xs mb-2">更精准地监测您的睡眠阶段和质量</p>
-                                <div class="flex justify-between items-center">
-                                    <p class="text-white font-medium">¥299</p>
-                                    <button class="px-3 py-1 bg-lavender text-white text-xs rounded-lg">
-                                        查看详情
-                                    </button>
+                    <div class="flex overflow-x-auto space-x-4 pb-4">
+                        <div class="product-card">
+                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl overflow-hidden mb-2">
+                                <div class="relative">
+                                    <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=160&q=80" alt="智能睡眠监测器" class="w-full h-40 object-cover">
+                                    <div class="absolute top-2 right-2 bg-lavender text-white text-xs px-2 py-1 rounded-full">
+                                        推荐
+                                    </div>
+                                </div>
+                                <div class="p-3">
+                                    <h3 class="text-white font-medium text-sm mb-1">智能睡眠监测器</h3>
+                                    <p class="text-soft-lavender text-xs mb-2">实时监测睡眠质量</p>
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-white font-medium">¥299</p>
+                                        <button class="w-8 h-8 rounded-full bg-lavender flex items-center justify-center text-white">
+                                            <i class="fas fa-plus text-xs"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="flex bg-ocean bg-opacity-30 rounded-2xl p-3">
-                            <div class="w-20 h-20 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1584473457409-ae5c91d7d8b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
-                            <div class="flex-1">
-                                <h3 class="text-white font-medium mb-1">助眠香薰精油</h3>
-                                <p class="text-soft-lavender text-xs mb-2">薰衣草精油有助于放松身心，改善睡眠</p>
-                                <div class="flex justify-between items-center">
-                                    <p class="text-white font-medium">¥129</p>
-                                    <button class="px-3 py-1 bg-lavender text-white text-xs rounded-lg">
-                                        查看详情
-                                    </button>
+                        <div class="product-card">
+                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl overflow-hidden mb-2">
+                                <img src="https://images.unsplash.com/photo-1584473457409-ae5c91d7d8b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=160&q=80" alt="助眠香薰精油" class="w-full h-40 object-cover">
+                                <div class="p-3">
+                                    <h3 class="text-white font-medium text-sm mb-1">助眠香薰精油</h3>
+                                    <p class="text-soft-lavender text-xs mb-2">薰衣草+洋甘菊</p>
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-white font-medium">¥129</p>
+                                        <button class="w-8 h-8 rounded-full bg-lavender flex items-center justify-center text-white">
+                                            <i class="fas fa-plus text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl overflow-hidden mb-2">
+                                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=160&q=80" alt="睡眠改善计划" class="w-full h-40 object-cover">
+                                <div class="p-3">
+                                    <h3 class="text-white font-medium text-sm mb-1">睡眠改善计划</h3>
+                                    <p class="text-soft-lavender text-xs mb-2">30天专业指导</p>
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-white font-medium">¥199</p>
+                                        <button class="w-8 h-8 rounded-full bg-lavender flex items-center justify-center text-white">
+                                            <i class="fas fa-plus text-xs"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- 底部导航 -->
-            <div class="bottom-tab absolute bottom-0 w-full backdrop-blur-sm bg-deep-blue bg-opacity-70 border-t border-ocean border-opacity-30">
-                <div class="tab-item text-white text-opacity-50">
-                    <i class="fas fa-home text-xl"></i>
-                    <span class="text-xs mt-1">首页</span>
-                </div>
-                <div class="tab-item text-lavender">
-                    <i class="fas fa-chart-line text-xl"></i>
-                    <span class="text-xs mt-1">报告</span>
-                </div>
-                <div class="tab-item text-white text-opacity-50">
-                    <div class="w-14 h-14 rounded-full bg-lavender flex items-center justify-center -mt-5 shadow-lg">
-                        <i class="fas fa-moon text-white text-xl"></i>
-                    </div>
-                </div>
-                <div class="tab-item text-white text-opacity-50">
-                    <i class="fas fa-headphones text-xl"></i>
-                    <span class="text-xs mt-1">助眠</span>
-                </div>
-                <div class="tab-item text-white text-opacity-50">
-                    <i class="fas fa-user text-xl"></i>
-                    <span class="text-xs mt-1">我的</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 周报告页面 -->
-        <div class="screen">
-            <!-- 背景图片 -->
-            <img src="https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="夜空背景" class="full-bg">
-            <div class="overlay"></div>
-            
-            <!-- 状态栏 -->
-            <div class="status-bar">
-                <div class="text-sm font-semibold text-white">9:41</div>
-                <div class="flex space-x-2 text-white">
-                    <i class="fas fa-signal"></i>
-                    <i class="fas fa-wifi"></i>
-                    <i class="fas fa-battery-full"></i>
-                </div>
-            </div>
-            
-            <!-- 内容区域 -->
-            <div class="content px-6 py-4">
-                <!-- 顶部导航 -->
-                <div class="flex justify-between items-center mb-6">
-                    <h1 class="text-2xl font-light text-white">睡眠报告</h1>
-                    <div class="flex space-x-2">
-                        <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                            <i class="fas fa-share-alt"></i>
-                        </button>
-                        <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </button>
-                    </div>
-                </div>
                 
-                <!-- 日期选择器 -->
-                <div class="flex justify-between items-center mb-6">
-                    <button class="w-8 h-8 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="text-center">
-                        <p class="text-white font-medium">2023年5月15日 - 5月21日</p>
-                        <p class="text-soft-lavender text-xs">第21周</p>
+                <!-- 热销产品 -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-medium text-white">热销产品</h2>
+                        <a href="#" class="text-lavender text-xs">查看全部</a>
                     </div>
-                    <button class="w-8 h-8 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-                
-                <!-- 报告类型选择 -->
-                <div class="flex space-x-2 mb-6 overflow-x-auto pb-2">
-                    <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">日报告</button>
-                    <button class="px-4 py-2 bg-lavender text-white rounded-full text-sm whitespace-nowrap">周报告</button>
-                    <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">月报告</button>
-                    <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">睡眠分析</button>
-                </div>
-                
-                <!-- 周睡眠概览 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                    <h2 class="text-lg font-medium text-white mb-4">周睡眠概览</h2>
-                    <div class="flex justify-between mb-6">
-                        <div class="text-center">
-                            <p class="text-3xl font-light text-white mb-1">7.2</p>
-                            <p class="text-soft-lavender text-xs">平均睡眠(小时)</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-3xl font-light text-white mb-1">83</p>
-                            <p class="text-soft-lavender text-xs">平均质量(%)</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-3xl font-light text-white mb-1">23:45</p>
-                            <p class="text-soft-lavender text-xs">平均入睡</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 睡眠时长图表 -->
-                    <h3 class="text-white font-medium mb-3">睡眠时长</h3>
-                    <div class="flex items-end justify-between h-40 mb-2">
-                        <div class="flex flex-col items-center">
-                            <div class="chart-bar" style="height: 60%;"></div>
-                            <p class="text-xs mt-2 text-soft-lavender">一</p>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <div class="chart-bar" style="height: 75%;"></div>
-                            <p class="text-xs mt-2 text-soft-lavender">二</p>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <div class="chart-bar" style="height: 65%;"></div>
-                            <p class="text-xs mt-2 text-soft-lavender">三</p>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <div class="chart-bar" style="height: 80%;"></div>
-                            <p class="text-xs mt-2 text-soft-lavender">四</p>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <div class="chart-bar" style="height: 70%;"></div>
-                            <p class="text-xs mt-2 text-soft-lavender">五</p>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <div class="chart-bar" style="height: 90%;"></div>
-                            <p class="text-xs mt-2 text-soft-lavender">六</p>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <div class="chart-bar" style="height: 85%;"></div>
-                            <p class="text-xs mt-2 text-soft-lavender">日</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-between text-xs text-soft-lavender mb-4">
-                        <span>6.5h</span>
-                        <span>7.2h</span>
-                        <span>6.8h</span>
-                        <span>7.8h</span>
-                        <span>7.0h</span>
-                        <span>8.2h</span>
-                        <span>7.5h</span>
-                    </div>
-                    
-                    <!-- 睡眠质量图表 -->
-                    <h3 class="text-white font-medium mb-3">睡眠质量</h3>
-                    <div class="w-full h-40 mb-2 relative">
-                        <svg viewBox="0 0 100 40" class="w-full h-full">
-                            <path fill="none" stroke="#a78bfa" stroke-width="1" d="M0,20 Q10,10 20,15 T40,10 T60,20 T80,5 T100,15" />
-                            <path fill="url(#gradient)" fill-opacity="0.2" d="M0,40 L0,20 Q10,10 20,15 T40,10 T60,20 T80,5 T100,15 L100,40
-                            <path fill="none" stroke="#a78bfa" stroke-width="1" d="M0,20 Q10,10 20,15 T40,10 T60,20 T80,5 T100,15" />
-                            <path fill="url(#gradient)" fill-opacity="0.2" d="M0,40 L0,20 Q10,10 20,15 T40,10 T60,20 T80,5 T100,15 L100,40 Z" />
-                            <defs>
-                                <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stop-color="#7c3aed" />
-                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                        <div class="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-soft-lavender">
-                            <span>一</span>
-                            <span>二</span>
-                            <span>三</span>
-                            <span>四</span>
-                            <span>五</span>
-                            <span>六</span>
-                            <span>日</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 睡眠阶段分析 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                    <h2 class="text-lg font-medium text-white mb-4">睡眠阶段分析</h2>
                     <div class="space-y-4">
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <p class="text-white text-sm">深度睡眠</p>
-                                <p class="text-soft-lavender text-sm">平均 1小时45分钟</p>
+                        <div class="flex bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-3">
+                            <div class="w-20 h-20 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1511295742362-92c96b1cf484?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
+                            <div class="flex-1">
+                                <h3 class="text-white font-medium mb-1">高级冥想课程</h3>
+                                <p class="text-soft-lavender text-xs mb-2">专为改善睡眠设计的冥想课程</p>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="text-yellow-400 text-xs mr-1">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                        <span class="text-xs text-soft-lavender">(328)</span>
+                                    </div>
+                                    <p class="text-white font-medium">¥149</p>
+                                </div>
                             </div>
-                            <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                <div class="h-full bg-lavender rounded-full" style="width: 24%;"></div>
-                            </div>
-                            <p class="text-xs text-soft-lavender mt-1">占总睡眠时间的24%，建议比例为20-25%</p>
                         </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <p class="text-white text-sm">REM睡眠</p>
-                                <p class="text-soft-lavender text-sm">平均 1小时26分钟</p>
+                        <div class="flex bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-3">
+                            <div class="w-20 h-20 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1631772559162-37b75a2d6235?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
+                            <div class="flex-1">
+                                <h3 class="text-white font-medium mb-1">静音白噪音机</h3>
+                                <p class="text-soft-lavender text-xs mb-2">10种自然声音，帮助入睡</p>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="text-yellow-400 text-xs mr-1">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="text-xs text-soft-lavender">(512)</span>
+                                    </div>
+                                    <p class="text-white font-medium">¥259</p>
+                                </div>
                             </div>
-                            <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                <div class="h-full bg-light-lavender opacity-80 rounded-full" style="width: 20%;"></div>
-                            </div>
-                            <p class="text-xs text-soft-lavender mt-1">占总睡眠时间的20%，建议比例为20-25%</p>
                         </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <p class="text-white text-sm">浅睡眠</p>
-                                <p class="text-soft-lavender text-sm">平均 3小时12分钟</p>
+                        <div class="flex bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-3">
+                            <div class="w-20 h-20 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
+                            <div class="flex-1">
+                                <h3 class="text-white font-medium mb-1">记忆棉颈椎枕</h3>
+                                <p class="text-soft-lavender text-xs mb-2">缓解颈部压力，提升睡眠质量</p>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="text-yellow-400 text-xs mr-1">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <span class="text-xs text-soft-lavender">(246)</span>
+                                    </div>
+                                    <p class="text-white font-medium">¥189</p>
+                                </div>
                             </div>
-                            <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                <div class="h-full bg-light-lavender opacity-60 rounded-full" style="width: 44%;"></div>
-                            </div>
-                            <p class="text-xs text-soft-lavender mt-1">占总睡眠时间的44%，建议比例为45-55%</p>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <p class="text-white text-sm">清醒</p>
-                                <p class="text-soft-lavender text-sm">平均 52分钟</p>
-                            </div>
-                            <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                <div class="h-full bg-light-lavender opacity-30 rounded-full" style="width: 12%;"></div>
-                            </div>
-                            <p class="text-xs text-soft-lavender mt-1">占总睡眠时间的12%，建议比例小于10%</p>
                         </div>
                     </div>
                 </div>
                 
-                <!-- 睡眠习惯分析 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                    <h2 class="text-lg font-medium text-white mb-4">睡眠习惯分析</h2>
-                    <div class="space-y-4">
-                        <div class="flex">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
-                                <i class="fas fa-bed"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-white font-medium mb-1">入睡时间不规律</h3>
-                                <p class="text-soft-lavender text-sm">本周入睡时间相差1小时15分钟，建议保持规律的作息时间。</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
+                <!-- 基于睡眠数据的推荐 -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-medium text-white">针对您的睡眠问题</h2>
+                    </div>
+                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-4">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3 flex-shrink-0">
                                 <i class="fas fa-exclamation-circle"></i>
                             </div>
                             <div>
-                                <h3 class="text-white font-medium mb-1">夜间清醒次数较多</h3>
-                                <p class="text-soft-lavender text-sm">平均每晚清醒3.2次，可能影响睡眠质量。</p>
+                                <h3 class="text-white font-medium">入睡困难</h3>
+                                <p class="text-soft-lavender text-xs">您平均需要45分钟才能入睡</p>
                             </div>
                         </div>
-                        <div class="flex">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
-                                <i class="fas fa-thumbs-up"></i>
+                        <div class="flex overflow-x-auto space-x-4 pb-2">
+                            <div class="product-card">
+                                <div class="bg-ocean bg-opacity-30 backdrop-blur-sm rounded-2xl overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1584473457409-ae5c91d7d8b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=120&q=80" alt="助眠香薰精油" class="w-full h-24 object-cover">
+                                    <div class="p-3">
+                                        <h3 class="text-white text-xs font-medium mb-1">助眠香薰精油</h3>
+                                        <p class="text-white font-medium text-sm">¥129</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="text-white font-medium mb-1">周末睡眠时间充足</h3>
-                                <p class="text-soft-lavender text-sm">周末平均睡眠时间为8小时，有助于恢复工作日的睡眠不足。</p>
+                            <div class="product-card">
+                                <div class="bg-ocean bg-opacity-30 backdrop-blur-sm rounded-2xl overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1511295742362-92c96b1cf484?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=120&q=80" alt="睡前冥想课程" class="w-full h-24 object-cover">
+                                    <div class="p-3">
+                                        <h3 class="text-white text-xs font-medium mb-1">睡前冥想课程</h3>
+                                        <p class="text-white font-medium text-sm">¥99</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- 改善建议 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                    <h2 class="text-lg font-medium text-white mb-4">改善建议</h2>
-                    <div class="space-y-4">
-                        <div class="flex">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
-                                <i class="fas fa-clock"></i>
+                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3 flex-shrink-0">
+                                <i class="fas fa-exclamation-circle"></i>
                             </div>
                             <div>
-                                <h3 class="text-white font-medium mb-1">固定睡眠时间</h3>
-                                <p class="text-soft-lavender text-sm">尝试每天在23:00-23:30之间入睡，包括周末。</p>
+                                <h3 class="text-white font-medium">夜间醒来</h3>
+                                <p class="text-soft-lavender text-xs">您平均每晚醒来3.2次</p>
                             </div>
                         </div>
-                        <div class="flex">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
-                                <i class="fas fa-coffee"></i>
+                        <div class="flex overflow-x-auto space-x-4 pb-2">
+                            <div class="product-card">
+                                <div class="bg-ocean bg-opacity-30 backdrop-blur-sm rounded-2xl overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1631772559162-37b75a2d6235?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=120&q=80" alt="白噪音机" class="w-full h-24 object-cover">
+                                    <div class="p-3">
+                                        <h3 class="text-white text-xs font-medium mb-1">静音白噪音机</h3>
+                                        <p class="text-white font-medium text-sm">¥259</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="text-white font-medium mb-1">限制咖啡因摄入</h3>
-                                <p class="text-soft-lavender text-sm">下午3点后避免摄入咖啡因，以免影响夜间睡眠。</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
-                                <i class="fas fa-mobile-alt"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-white font-medium mb-1">睡前放下电子设备</h3>
-                                <p class="text-soft-lavender text-sm">睡前1小时避免使用手机和电脑，减少蓝光对褪黑素的影响。</p>
+                            <div class="product-card">
+                                <div class="bg-ocean bg-opacity-30 backdrop-blur-sm rounded-2xl overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1555977494-e51f7b4726cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=120&q=80" alt="遮光眼罩" class="w-full h-24 object-cover">
+                                    <div class="p-3">
+                                        <h3 class="text-white text-xs font-medium mb-1">3D立体遮光眼罩</h3>
+                                        <p class="text-white font-medium text-sm">¥89</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -617,7 +386,7 @@
                     <i class="fas fa-home text-xl"></i>
                     <span class="text-xs mt-1">首页</span>
                 </div>
-                <div class="tab-item text-lavender">
+                <div class="tab-item text-white text-opacity-50">
                     <i class="fas fa-chart-line text-xl"></i>
                     <span class="text-xs mt-1">报告</span>
                 </div>
@@ -626,9 +395,9 @@
                         <i class="fas fa-moon text-white text-xl"></i>
                     </div>
                 </div>
-                <div class="tab-item text-white text-opacity-50">
-                    <i class="fas fa-headphones text-xl"></i>
-                    <span class="text-xs mt-1">助眠</span>
+                <div class="tab-item text-lavender">
+                    <i class="fas fa-shopping-bag text-xl"></i>
+                    <span class="text-xs mt-1">集市</span>
                 </div>
                 <div class="tab-item text-white text-opacity-50">
                     <i class="fas fa-user text-xl"></i>
@@ -637,10 +406,10 @@
             </div>
         </div>
         
-        <!-- 月报告页面 -->
+        <!-- 个人中心页面 -->
         <div class="screen">
             <!-- 背景图片 -->
-            <img src="https://images.unsplash.com/photo-1532767153582-b1a0e5145009?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="星空背景" class="full-bg">
+            <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="星空背景" class="full-bg">
             <div class="overlay"></div>
             
             <!-- 状态栏 -->
@@ -657,288 +426,196 @@
             <div class="content px-6 py-4">
                 <!-- 顶部导航 -->
                 <div class="flex justify-between items-center mb-6">
-                    <h1 class="text-2xl font-light text-white">睡眠报告</h1>
-                    <div class="flex space-x-2">
-                        <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                            <i class="fas fa-share-alt"></i>
-                        </button>
-                        <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- 日期选择器 -->
-                <div class="flex justify-between items-center mb-6">
-                    <button class="w-8 h-8 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="text-center">
-                        <p class="text-white font-medium">2023年5月</p>
-                    </div>
-                    <button class="w-8 h-8 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                        <i class="fas fa-chevron-right"></i>
+                    <h1 class="text-2xl font-light text-white">个人中心</h1>
+                    <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
+                        <i class="fas fa-cog"></i>
                     </button>
                 </div>
                 
-                <!-- 报告类型选择 -->
-                <div class="flex space-x-2 mb-6 overflow-x-auto pb-2">
-                    <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">日报告</button>
-                    <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">周报告</button>
-                    <button class="px-4 py-2 bg-lavender text-white rounded-full text-sm whitespace-nowrap">月报告</button>
-                    <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">睡眠分析</button>
-                </div>
-                
-                <!-- 月度睡眠概览 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                    <h2 class="text-lg font-medium text-white mb-4">月度睡眠概览</h2>
-                    <div class="flex justify-between mb-6">
-                        <div class="text-center">
-                            <p class="text-3xl font-light text-white mb-1">7.1</p>
-                            <p class="text-soft-lavender text-xs">平均睡眠(小时)</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-3xl font-light text-white mb-1">81</p>
-                            <p class="text-soft-lavender text-xs">平均质量(%)</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-3xl font-light text-white mb-1">23:52</p>
-                            <p class="text-soft-lavender text-xs">平均入睡</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 月度睡眠日历 -->
-                    <h3 class="text-white font-medium mb-3">睡眠日历</h3>
-                    <div class="grid grid-cols-7 gap-2 mb-2">
-                        <div class="text-center text-xs text-soft-lavender">一</div>
-                        <div class="text-center text-xs text-soft-lavender">二</div>
-                        <div class="text-center text-xs text-soft-lavender">三</div>
-                        <div class="text-center text-xs text-soft-lavender">四</div>
-                        <div class="text-center text-xs text-soft-lavender">五</div>
-                        <div class="text-center text-xs text-soft-lavender">六</div>
-                        <div class="text-center text-xs text-soft-lavender">日</div>
-                        
-                        <div class="text-center text-xs text-soft-lavender opacity-50">24</div>
-                        <div class="text-center text-xs text-soft-lavender opacity-50">25</div>
-                        <div class="text-center text-xs text-soft-lavender opacity-50">26</div>
-                        <div class="text-center text-xs text-soft-lavender opacity-50">27</div>
-                        <div class="text-center text-xs text-soft-lavender opacity-50">28</div>
-                        <div class="text-center text-xs text-soft-lavender opacity-50">29</div>
-                        <div class="text-center text-xs text-soft-lavender opacity-50">30</div>
-                        
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 70%, transparent 70%, transparent 100%);">1</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 65%, transparent 65%, transparent 100%);">2</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 80%, transparent 80%, transparent 100%);">3</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 75%, transparent 75%, transparent 100%);">4</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 60%, transparent 60%, transparent 100%);">5</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 90%, transparent 90%, transparent 100%);">6</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 85%, transparent 85%, transparent 100%);">7</div>
-                        
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 70%, transparent 70%, transparent 100%);">8</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 75%, transparent 75%, transparent 100%);">9</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 80%, transparent 80%, transparent 100%);">10</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 65%, transparent 65%, transparent 100%);">11</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 70%, transparent 70%, transparent 100%);">12</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 85%, transparent 85%, transparent 100%);">13</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 90%, transparent 90%, transparent 100%);">14</div>
-                        
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 75%, transparent 75%, transparent 100%);">15</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 80%, transparent 80%, transparent 100%);">16</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 70%, transparent 70%, transparent 100%);">17</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 85%, transparent 85%, transparent 100%);">18</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 75%, transparent 75%, transparent 100%);">19</div>
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-xs text-white" style="background: linear-gradient(to bottom right, #7c3aed 0%, #7c3aed 90%, transparent 90%, transparent 100%);">20</div>
-                        <div class="w-10 h-10 rounded-full bg-lavender flex items-center justify-center text-xs text-white">21</div>
-                        
-                        <div class="text-center text-xs text-soft-lavender">22</div>
-                        <div class="text-center text-xs text-soft-lavender">23</div>
-                        <div class="text-center text-xs text-soft-lavender">24</div>
-                        <div class="text-center text-xs text-soft-lavender">25</div>
-                        <div class="text-center text-xs text-soft-lavender">26</div>
-                        <div class="text-center text-xs text-soft-lavender">27</div>
-                        <div class="text-center text-xs text-soft-lavender">28</div>
-                        
-                        <div class="text-center text-xs text-soft-lavender">29</div>
-                        <div class="text-center text-xs text-soft-lavender">30</div>
-                        <div class="text-center text-xs text-soft-lavender">31</div>
-                        <div class="text-center text-xs text-soft-lavender opacity-50">1</div>
-                        <div class="text-center text-xs text-soft-lavender opacity-50">2</div>
-                        <div class="text-center text-xs text-soft-lavender opacity-50">3</div>
-                        <div class="text-center text-xs text-soft-lavender opacity-50">4</div>
-                    </div>
-                    <div class="flex items-center justify-center space-x-4 mt-2">
-                        <div class="flex items-center">
-                            <div class="w-3 h-3 rounded-full bg-lavender mr-1"></div>
-                            <span class="text-xs text-soft-lavender">优质睡眠</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-3 h-3 rounded-full bg-lavender opacity-70 mr-1"></div>
-                            <span class="text-xs text-soft-lavender">良好睡眠</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-3 h-3 rounded-full bg-lavender opacity-40 mr-1"></div>
-                            <span class="text-xs text-soft-lavender">一般睡眠</span>
-                        </div>
+                <!-- 用户信息 -->
+                <div class="flex items-center mb-8">
+                    <div class="w-20 h-20 rounded-full bg-cover bg-center mr-4 border-4 border-lavender border-opacity-30" style="background-image: url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
+                    <div>
+                        <h2 class="text-xl font-medium text-white mb-1">李明</h2>
+                        <p class="text-soft-lavender">高级会员 · 已连续使用28天</p>
                     </div>
                 </div>
                 
-                <!-- 月度趋势分析 -->
+                <!-- 睡眠统计 -->
                 <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                    <h2 class="text-lg font-medium text-white mb-4">月度趋势分析</h2>
-                    
-                    <!-- 睡眠时长趋势 -->
-                    <h3 class="text-white font-medium mb-3">睡眠时长趋势</h3>
-                    <div class="w-full h-40 mb-4 relative">
-                        <svg viewBox="0 0 100 40" class="w-full h-full">
-                            <path fill="none" stroke="#a78bfa" stroke-width="1" d="M0,20 Q5,18 10,15 T20,10 T30,15 T40,20 T50,18 T60,12 T70,15 T80,10 T90,15 T100,12" />
-                            <path fill="url(#gradient)" fill-opacity="0.2" d="M0,40 L0,20 Q5,18 10,15 T20,10 T30,15 T40,20 T50,18 T60,12 T70,15 T80,10 T90,15 T100,12 L100,40 Z" />
-                        </svg>
-                        <div class="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-soft-lavender">
-                            <span>1周</span>
-                            <span>2周</span>
-                            <span>3周</span>
-                            <span>4周</span>
+                    <h2 class="text-lg font-medium text-white mb-4">睡眠统计</h2>
+                    <div class="flex justify-between mb-4">
+                        <div class="text-center">
+                            <p class="text-3xl font-light text-white mb-1">7.2h</p>
+                            <p class="text-xs text-soft-lavender">平均睡眠</p>
                         </div>
+                        <div class="text-center">
+                            <p class="text-3xl font-light text-white mb-1">83%</p>
+                            <p class="text-xs text-soft-lavender">平均质量</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-3xl font-light text-white mb-1">23:45</p>
+                            <p class="text-xs text-soft-lavender">平均入睡</p>
+                        </div>
+                        <div class="flex justify-between mb-4">
+                            <div class="text-center">
+                                <p class="text-3xl font-light text-white mb-1">7.2h</p>
+                                <p class="text-xs text-soft-lavender">平均睡眠</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-3xl font-light text-white mb-1">83%</p>
+                                <p class="text-xs text-soft-lavender">平均质量</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-3xl font-light text-white mb-1">23:45</p>
+                                <p class="text-xs text-soft-lavender">平均入睡</p>
+                            </div>
+                        </div>
+                        <button class="w-full py-2 bg-lavender bg-opacity-30 text-lavender rounded-xl text-sm font-medium">
+                            查看详细报告
+                        </button>
                     </div>
                     
-                    <!-- 睡眠质量趋势 -->
-                    <h3 class="text-white font-medium mb-3">睡眠质量趋势</h3>
-                    <div class="w-full h-40 mb-4 relative">
-                        <svg viewBox="0 0 100 40" class="w-full h-full">
-                            <path fill="none" stroke="#7c3aed" stroke-width="1" d="M0,15 Q5,10 10,12 T20,8 T30,15 T40,10 T50,5 T60,12 T70,8 T80,15 T90,10 T100,8" />
-                            <path fill="url(#gradient2)" fill-opacity="0.2" d="M0,40 L0,15 Q5,10 10,12 T20,8 T30,15 T40,10 T50,5 T60,12 T70,8 T80,15 T90,10 T100,8 L100,40 Z" />
-                            <defs>
-                                <linearGradient id="gradient2" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stop-color="#7c3aed" />
-                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                        <div class="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-soft-lavender">
-                            <span>1周</span>
-                            <span>2周</span>
-                            <span>3周</span>
-                            <span>4周</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 月度睡眠总结 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                    <h2 class="text-lg font-medium text-white mb-4">月度睡眠总结</h2>
-                    <div class="space-y-4">
-                        <div class="flex">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-white font-medium mb-1">最佳睡眠日</h3>
-                                <p class="text-soft-lavender text-sm">5月20日，睡眠质量达到95%，深度睡眠比例为28%。</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="w-10 h-10 rounde
-                            <div class="flex">
-                                <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-white font-medium mb-1">最佳睡眠日</h3>
-                                    <p class="text-soft-lavender text-sm">5月20日，睡眠质量达到95%，深度睡眠比例为28%。</p>
-                                </div>
-                            </div>
-                            <div class="flex">
-                                <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-white font-medium mb-1">睡眠质量提升</h3>
-                                    <p class="text-soft-lavender text-sm">与上月相比，您的平均睡眠质量提高了5%，深度睡眠增加了12分钟。</p>
-                                </div>
-                            </div>
-                            <div class="flex">
-                                <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-white font-medium mb-1">需要改进</h3>
-                                    <p class="text-soft-lavender text-sm">工作日的平均睡眠时间仅为6.8小时，低于健康标准的7-8小时。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 健康影响分析 -->
+                    <!-- 健康数据同步 -->
                     <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                        <h2 class="text-lg font-medium text-white mb-4">健康影响分析</h2>
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-lg font-medium text-white">健康数据同步</h2>
+                            <button class="w-8 h-8 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender">
+                                <i class="fas fa-sync-alt text-sm"></i>
+                            </button>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3">
+                                        <i class="fab fa-apple text-black text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-medium">Apple Health</h3>
+                                        <p class="text-soft-lavender text-xs">已连接，上次同步：今天 08:32</p>
+                                    </div>
+                                </div>
+                                <div class="w-12 h-6 bg-lavender rounded-full relative px-1 flex items-center">
+                                    <div class="w-4 h-4 bg-white rounded-full absolute right-1"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3">
+                                        <i class="fab fa-google text-blue-500 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-medium">Google Fit</h3>
+                                        <p class="text-soft-lavender text-xs">未连接</p>
+                                    </div>
+                                </div>
+                                <div class="w-12 h-6 bg-ocean bg-opacity-30 rounded-full relative px-1 flex items-center">
+                                    <div class="w-4 h-4 bg-white rounded-full absolute left-1"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3">
+                                        <i class="fas fa-heartbeat text-red-500 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-white font-medium">智能手表</h3>
+                                        <p class="text-soft-lavender text-xs">已连接，上次同步：今天 07:15</p>
+                                    </div>
+                                </div>
+                                <div class="w-12 h-6 bg-lavender rounded-full relative px-1 flex items-center">
+                                    <div class="w-4 h-4 bg-white rounded-full absolute right-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 功能列表 -->
+                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl mb-6">
+                        <div class="p-4 border-b border-ocean border-opacity-30 flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white font-medium">会员中心</p>
+                                <p class="text-soft-lavender text-xs">高级会员，有效期至2023年12月31日</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-soft-lavender"></i>
+                        </div>
+                        
+                        <div class="p-4 border-b border-ocean border-opacity-30 flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white font-medium">我的订单</p>
+                                <p class="text-soft-lavender text-xs">查看购买历史和订单状态</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-soft-lavender"></i>
+                        </div>
+                        
+                        <div class="p-4 border-b border-ocean border-opacity-30 flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white font-medium">提醒设置</p>
+                                <p class="text-soft-lavender text-xs">睡眠提醒和唤醒闹钟</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-soft-lavender"></i>
+                        </div>
+                        
+                        <div class="p-4 border-b border-ocean border-opacity-30 flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white font-medium">医疗资源</p>
+                                <p class="text-soft-lavender text-xs">专业睡眠医生和诊所</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-soft-lavender"></i>
+                        </div>
+                        
+                        <div class="p-4 flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-white font-medium">客服支持</p>
+                                <p class="text-soft-lavender text-xs">在线客服和帮助中心</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-soft-lavender"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- 睡眠目标 -->
+                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
+                        <h2 class="text-lg font-medium text-white mb-4">睡眠目标</h2>
                         <div class="space-y-4">
                             <div>
                                 <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">心率稳定性</p>
-                                    <p class="text-soft-lavender text-sm">良好</p>
+                                    <p class="text-white text-sm">每日睡眠时长</p>
+                                    <p class="text-soft-lavender text-sm">8小时</p>
+                                </div>
+                                <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
+                                    <div class="h-full bg-lavender rounded-full" style="width: 90%;"></div>
+                                </div>
+                                <p class="text-xs text-soft-lavender mt-1">您的平均睡眠时长为7.2小时，接近目标</p>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <p class="text-white text-sm">入睡时间</p>
+                                    <p class="text-soft-lavender text-sm">23:00</p>
                                 </div>
                                 <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
                                     <div class="h-full bg-lavender rounded-full" style="width: 75%;"></div>
                                 </div>
-                                <p class="text-xs text-soft-lavender mt-1">夜间平均心率62BPM，波动范围小</p>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">呼吸规律性</p>
-                                    <p class="text-soft-lavender text-sm">优秀</p>
-                                </div>
-                                <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-lavender rounded-full" style="width: 85%;"></div>
-                                </div>
-                                <p class="text-xs text-soft-lavender mt-1">呼吸平稳，无明显呼吸暂停现象</p>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">压力水平</p>
-                                    <p class="text-soft-lavender text-sm">中等</p>
-                                </div>
-                                <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-lavender rounded-full" style="width: 60%;"></div>
-                                </div>
-                                <p class="text-xs text-soft-lavender mt-1">工作日压力水平较高，周末有所缓解</p>
+                                <p class="text-xs text-soft-lavender mt-1">您的平均入睡时间为23:45，晚于目标时间</p>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- 产品推荐 -->
-                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-lg font-medium text-white">长期改善方案</h2>
-                            <a href="#" class="text-lavender text-sm">查看全部</a>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="flex bg-ocean bg-opacity-30 rounded-2xl p-3">
-                                <div class="w-20 h-20 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
-                                <div class="flex-1">
-                                    <h3 class="text-white font-medium mb-1">睡眠改善计划</h3>
-                                    <p class="text-soft-lavender text-xs mb-2">为期30天的睡眠习惯培养计划，包含专业指导</p>
-                                    <div class="flex justify-between items-center">
-                                        <p class="text-white font-medium">¥199</p>
-                                        <button class="px-3 py-1 bg-lavender text-white text-xs rounded-lg">
-                                            了解详情
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex bg-ocean bg-opacity-30 rounded-2xl p-3">
-                                <div class="w-20 h-20 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1511295742362-92c96b1cf484?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
-                                <div class="flex-1">
-                                    <h3 class="text-white font-medium mb-1">高级冥想课程</h3>
-                                    <p class="text-soft-lavender text-xs mb-2">专为改善睡眠设计的冥想课程，缓解压力</p>
-                                    <div class="flex justify-between items-center">
-                                        <p class="text-white font-medium">¥149</p>
-                                        <button class="px-3 py-1 bg-lavender text-white text-xs rounded-lg">
-                                            了解详情
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <button class="w-full py-2 bg-lavender bg-opacity-30 text-lavender rounded-xl text-sm font-medium mt-4">
+                            调整睡眠目标
+                        </button>
                     </div>
                 </div>
                 
@@ -948,7 +625,7 @@
                         <i class="fas fa-home text-xl"></i>
                         <span class="text-xs mt-1">首页</span>
                     </div>
-                    <div class="tab-item text-lavender">
+                    <div class="tab-item text-white text-opacity-50">
                         <i class="fas fa-chart-line text-xl"></i>
                         <span class="text-xs mt-1">报告</span>
                     </div>
@@ -958,20 +635,20 @@
                         </div>
                     </div>
                     <div class="tab-item text-white text-opacity-50">
-                        <i class="fas fa-headphones text-xl"></i>
-                        <span class="text-xs mt-1">助眠</span>
+                        <i class="fas fa-shopping-bag text-xl"></i>
+                        <span class="text-xs mt-1">集市</span>
                     </div>
-                    <div class="tab-item text-white text-opacity-50">
+                    <div class="tab-item text-lavender">
                         <i class="fas fa-user text-xl"></i>
                         <span class="text-xs mt-1">我的</span>
                     </div>
                 </div>
             </div>
             
-            <!-- 睡眠分析页面 -->
+            <!-- 医疗资源页面 -->
             <div class="screen">
                 <!-- 背景图片 -->
-                <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="星空背景" class="full-bg">
+                <img src="https://images.unsplash.com/photo-1532767153582-b1a0e5145009?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="星空背景" class="full-bg">
                 <div class="overlay"></div>
                 
                 <!-- 状态栏 -->
@@ -987,214 +664,231 @@
                 <!-- 内容区域 -->
                 <div class="content px-6 py-4">
                     <!-- 顶部导航 -->
-                    <div class="flex justify-between items-center mb-6">
-                        <h1 class="text-2xl font-light text-white">睡眠报告</h1>
+                    <div class="flex items-center mb-6">
+                        <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white mr-4">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <h1 class="text-2xl font-light text-white">医疗资源</h1>
+                    </div>
+                    
+                    <!-- 医疗资源介绍 -->
+                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
+                        <h2 class="text-lg font-medium text-white mb-2">专业睡眠医疗支持</h2>
+                        <p class="text-soft-lavender text-sm mb-4">我们与专业睡眠医疗机构合作，为您提供专业的睡眠健康服务。</p>
                         <div class="flex space-x-2">
-                            <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                                <i class="fas fa-share-alt"></i>
+                            <button class="flex-1 py-2 bg-lavender text-white rounded-xl text-sm font-medium">
+                                了解更多
                             </button>
-                            <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                                <i class="fas fa-ellipsis-h"></i>
+                            <button class="flex-1 py-2 bg-lavender bg-opacity-30 text-lavender rounded-xl text-sm font-medium">
+                                分享报告
                             </button>
                         </div>
                     </div>
                     
-                    <!-- 报告类型选择 -->
-                    <div class="flex space-x-2 mb-6 overflow-x-auto pb-2">
-                        <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">日报告</button>
-                        <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">周报告</button>
-                        <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">月报告</button>
-                        <button class="px-4 py-2 bg-lavender text-white rounded-full text-sm whitespace-nowrap">睡眠分析</button>
-                    </div>
-                    
-                    <!-- 睡眠评分 -->
-                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                        <h2 class="text-lg font-medium text-white mb-4">睡眠健康评分</h2>
-                        <div class="flex justify-center mb-6">
-                            <div class="relative w-48 h-48">
-                                <svg viewBox="0 0 100 100" class="w-full h-full">
-                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#334155" stroke-width="10" />
-                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#7c3aed" stroke-width="10" stroke-dasharray="283" stroke-dashoffset="56.6" transform="rotate(-90 50 50)" />
-                                    <text x="50" y="50" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="24" font-weight="bold">80</text>
-                                    <text x="50" y="65" text-anchor="middle" dominant-baseline="middle" fill="#c4b5fd" font-size="10">良好</text>
-                                </svg>
-                            </div>
+                    <!-- 睡眠专家 -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-lg font-medium text-white">睡眠专家</h2>
+                            <a href="#" class="text-lavender text-xs">查看全部</a>
                         </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-ocean bg-opacity-30 rounded-xl p-3">
-                                <div class="flex items-center mb-2">
-                                    <div class="w-8 h-8 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-2">
-                                        <i class="fas fa-clock"></i>
-                                    </div>
-                                    <p class="text-white font-medium">睡眠时长</p>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <p class="text-2xl font-light text-white">7.1h</p>
-                                    <p class="text-xs text-soft-lavender">良好</p>
-                                </div>
-                            </div>
-                            <div class="bg-ocean bg-opacity-30 rounded-xl p-3">
-                                <div class="flex items-center mb-2">
-                                    <div class="w-8 h-8 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-2">
-                                        <i class="fas fa-moon"></i>
-                                    </div>
-                                    <p class="text-white font-medium">深度睡眠</p>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <p class="text-2xl font-light text-white">23%</p>
-                                    <p class="text-xs text-soft-lavender">优秀</p>
-                                </div>
-                            </div>
-                            <div class="bg-ocean bg-opacity-30 rounded-xl p-3">
-                                <div class="flex items-center mb-2">
-                                    <div class="w-8 h-8 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-2">
-                                        <i class="fas fa-bed"></i>
-                                    </div>
-                                    <p class="text-white font-medium">睡眠效率</p>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <p class="text-2xl font-light text-white">87%</p>
-                                    <p class="text-xs text-soft-lavender">良好</p>
-                                </div>
-                            </div>
-                            <div class="bg-ocean bg-opacity-30 rounded-xl p-3">
-                                <div class="flex items-center mb-2">
-                                    <div class="w-8 h-8 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-2">
-                                        <i class="fas fa-heart"></i>
-                                    </div>
-                                    <p class="text-white font-medium">心率稳定</p>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <p class="text-2xl font-light text-white">92%</p>
-                                    <p class="text-xs text-soft-lavender">优秀</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 睡眠问题分析 -->
-                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                        <h2 class="text-lg font-medium text-white mb-4">睡眠问题分析</h2>
                         <div class="space-y-4">
-                            <div class="bg-ocean bg-opacity-30 rounded-xl p-4">
-                                <div class="flex items-center mb-2">
-                                    <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                        <i class="fas fa-exclamation-circle"></i>
+                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4">
+                                <div class="flex items-start">
+                                    <div class="w-16 h-16 rounded-full bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <h3 class="text-white font-medium">张医生</h3>
+                                                <p class="text-soft-lavender text-xs mb-1">睡眠医学专家 · 北京睡眠中心</p>
+                                            </div>
+                                            <div class="bg-lavender bg-opacity-30 text-lavender text-xs px-2 py-1 rounded-full">
+                                                认证专家
+                                            </div>
+                                        </div>
+                                        <p class="text-soft-lavender text-xs mb-3">专注于失眠、睡眠呼吸暂停等睡眠障碍的诊断与治疗，拥有15年临床经验。</p>
+                                        <div class="flex space-x-2">
+                                            <button class="flex-1 py-1.5 bg-lavender text-white rounded-lg text-xs">
+                                                在线咨询
+                                            </button>
+                                            <button class="flex-1 py-1.5 bg-lavender bg-opacity-30 text-lavender rounded-lg text-xs">
+                                                预约门诊
+                                            </button>
+                                        </div>
                                     </div>
-                                    <h3 class="text-white font-medium">入睡困难</h3>
                                 </div>
-                                <p class="text-soft-lavender text-sm mb-3">您平均需要45分钟才能入睡，高于正常的15-20分钟。</p>
-                                <div class="flex justify-between">
-                                    <button class="px-3 py-1 bg-lavender bg-opacity-30 text-white text-xs rounded-lg">
-                                        查看解决方案
-                                    </button>
+                            </div>
+                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4">
+                                <div class="flex items-start">
+                                    <div class="w-16 h-16 rounded-full bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <h3 class="text-white font-medium">李医生</h3>
+                                                <p class="text-soft-lavender text-xs mb-1">神经内科医师 · 上海睡眠障碍中心</p>
+                                            </div>
+                                            <div class="bg-lavender bg-opacity-30 text-lavender text-xs px-2 py-1 rounded-full">
+                                                认证专家
+                                            </div>
+                                        </div>
+                                        <p class="text-soft-lavender text-xs mb-3">擅长各类睡眠障碍的药物和非药物治疗，尤其是失眠和昼夜节律紊乱。</p>
+                                        <div class="flex space-x-2">
+                                            <button class="flex-1 py-1.5 bg-lavender text-white rounded-lg text-xs">
+                                                在线咨询
+                                            </button>
+                                            <button class="flex-1 py-1.5 bg-lavender bg-opacity-30 text-lavender rounded-lg text-xs">
+                                                预约门诊
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 睡眠诊所 -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-lg font-medium text-white">合作睡眠诊所</h2>
+                            <a href="#" class="text-lavender text-xs">查看地图</a>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4">
+                                <div class="flex">
+                                    <div class="w-20 h-20 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
+                                    <div class="flex-1">
+                                        <h3 class="text-white font-medium mb-1">北京睡眠医学中心</h3>
+                                        <p class="text-soft-lavender text-xs mb-2">北京市海淀区中关村南大街甲18号</p>
+                                        <div class="flex items-center mb-2">
+                                            <div class="text-yellow-400 text-xs mr-1">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                            </div>
+                                            <span class="text-xs text-soft-lavender">(128)</span>
+                                        </div>
+                                        <button class="w-full py-1.5 bg-lavender text-white rounded-lg text-xs">
+                                            预约检查
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4">
+                                <div class="flex">
+                                    <div class="w-20 h-20 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
+                                    <div class="flex-1">
+                                        <h3 class="text-white font-medium mb-1">上海睡眠障碍诊疗中心</h3>
+                                        <p class="text-soft-lavender text-xs mb-2">上海市徐汇区华山路2号</p>
+                                        <div class="flex items-center mb-2">
+                                            <div class="text-yellow-400 text-xs mr-1">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <span class="text-xs text-soft-lavender">(156)</span>
+                                        </div>
+                                        <button class="w-full py-1.5 bg-lavender text-white rounded-lg text-xs">
+                                            预约检查
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 睡眠检测服务 -->
+                    <div class="mb-6">
+                        <h2 class="text-lg font-medium text-white mb-4">专业睡眠检测</h2>
+                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
+                                    <i class="fas fa-bed"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-medium">多导睡眠监测 (PSG)</h3>
+                                    <p class="text-soft-lavender text-xs">睡眠障碍诊断的金标准</p>
+                                </div>
+                            </div>
+                            <p class="text-soft-lavender text-sm mb-4">多导睡眠监测是一种全面的睡眠检查，可以记录您睡眠期间的脑电波、心率、呼吸、肢体运动等多项生理指标，帮助医生精确诊断各类睡眠障碍。</p>
+                            <div class="flex space-x-2">
+                                <button class="flex-1 py-2 bg-lavender text-white rounded-xl text-sm font-medium">
+                                    了解详情
+                                </button>
+                                <button class="flex-1 py-2 bg-lavender bg-opacity-30 text-lavender rounded-xl text-sm font-medium">
+                                    预约检查
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 常见睡眠问题 -->
+                    <div class="mb-6">
+                        <h2 class="text-lg font-medium text-white mb-4">常见睡眠问题</h2>
+                        <div class="space-y-3">
+                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-xl p-4">
+                                <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <div class="w-2 h-2 rounded-full bg-red-400 mr-1"></div>
-                                        <span class="text-xs text-soft-lavender">中度问题</span>
+                                        <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
+                                            <i class="fas fa-moon"></i>
+                                        </div>
+                                        <h3 class="text-white font-medium">失眠症</h3>
                                     </div>
+                                    <i class="fas fa-chevron-right text-soft-lavender"></i>
                                 </div>
                             </div>
-                            <div class="bg-ocean bg-opacity-30 rounded-xl p-4">
-                                <div class="flex items-center mb-2">
-                                    <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                        <i class="fas fa-exclamation-circle"></i>
-                                    </div>
-                                    <h3 class="text-white font-medium">夜间醒来</h3>
-                                </div>
-                                <p class="text-soft-lavender text-sm mb-3">您平均每晚醒来3.2次，可能影响睡眠连续性和质量。</p>
-                                <div class="flex justify-between">
-                                    <button class="px-3 py-1 bg-lavender bg-opacity-30 text-white text-xs rounded-lg">
-                                        查看解决方案
-                                    </button>
+                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-xl p-4">
+                                <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <div class="w-2 h-2 rounded-full bg-yellow-400 mr-1"></div>
-                                        <span class="text-xs text-soft-lavender">轻度问题</span>
+                                        <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
+                                            <i class="fas fa-wind"></i>
+                                        </div>
+                                        <h3 class="text-white font-medium">睡眠呼吸暂停</h3>
                                     </div>
+                                    <i class="fas fa-chevron-right text-soft-lavender"></i>
+                                </div>
+                            </div>
+                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-xl p-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
+                                            <i class="fas fa-walking"></i>
+                                        </div>
+                                        <h3 class="text-white font-medium">不宁腿综合征</h3>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-soft-lavender"></i>
+                                </div>
+                            </div>
+                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-xl p-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
+                                            <i class="fas fa-clock"></i>
+                                        </div>
+                                        <h3 class="text-white font-medium">昼夜节律紊乱</h3>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-soft-lavender"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- 睡眠习惯评估 -->
+                    <!-- 睡眠健康评估 -->
                     <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                        <h2 class="text-lg font-medium text-white mb-4">睡眠习惯评估</h2>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">睡眠规律性</p>
-                                    <p class="text-soft-lavender text-sm">需改进</p>
-                                </div>
-                                <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-yellow-400 rounded-full" style="width: 45%;"></div>
-                                </div>
-                                <p class="text-xs text-soft-lavender mt-1">工作日和周末的睡眠时间差异超过1.5小时</p>
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-lavender flex items-center justify-center text-white mr-4 flex-shrink-0">
+                                <i class="fas fa-clipboard-check"></i>
                             </div>
                             <div>
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">睡前活动</p>
-                                    <p class="text-soft-lavender text-sm">良好</p>
-                                </div>
-                                <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-green-400 rounded-full" style="width: 75%;"></div>
-                                </div>
-                                <p class="text-xs text-soft-lavender mt-1">睡前多使用放松活动，如阅读和冥想</p>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">睡眠环境</p>
-                                    <p class="text-soft-lavender text-sm">优秀</p>
-                                </div>
-                                <div class="w-full h-2 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-green-400 rounded-full" style="width: 90%;"></div>
-                                </div>
-                                <p class="text-xs text-soft-lavender mt-1">安静、黑暗的睡眠环境有助于提高睡眠质量</p>
+                                <h3 class="text-white font-medium">专业睡眠健康评估</h3>
+                                <p class="text-soft-lavender text-xs">由睡眠专家为您提供个性化分析</p>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- 个性化改善计划 -->
-                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                        <h2 class="text-lg font-medium text-white mb-4">个性化改善计划</h2>
-                        <div class="space-y-4">
-                            <div class="flex">
-                                <div class="w-10 h-10 rounded-full bg-lavender flex items-center justify-center text-white mr-4 flex-shrink-0">
-                                    <span class="font-medium">1</span>
-                                </div>
-                                <div>
-                                    <h3 class="text-white font-medium mb-1">建立规律作息</h3>
-                                    <p class="text-soft-lavender text-sm">每天固定时间入睡和起床，包括周末。建议23:00-23:30入睡。</p>
-                                </div>
-                            </div>
-                            <div class="flex">
-                                <div class="w-10 h-10 rounded-full bg-lavender flex items-center justify-center text-white mr-4 flex-shrink-0">
-                                    <span class="font-medium">2</span>
-                                </div>
-                                <div>
-                                    <h3 class="text-white font-medium mb-1">睡前放松仪式</h3>
-                                    <p class="text-soft-lavender text-sm">睡前1小时开始放松活动，如冥想、热水浴或轻度拉伸。</p>
-                                </div>
-                            </div>
-                            <div class="flex">
-                                <div class="w-10 h-10 rounded-full bg-lavender flex items-center justify-center text-white mr-4 flex-shrink-0">
-                                    <span class="font-medium">3</span>
-                                </div>
-                                <div>
-                                    <h3 class="text-white font-medium mb-1">限制电子设备使用</h3>
-                                    <p class="text-soft-lavender text-sm">睡前1小时避免使用手机、电脑等电子设备，减少蓝光影响。</p>
-                                </div>
-                            </div>
-                            <div class="flex">
-                                <div class="w-10 h-10 rounded-full bg-lavender flex items-center justify-center text-white mr-4 flex-shrink-0">
-                                    <span class="font-medium">4</span>
-                                </div>
-                                <div>
-                                    <h3 class="text-white font-medium mb-1">优化睡眠环境</h3>
-                                    <p class="text-soft-lavender text-sm">保持卧室温度在18-20℃，使用遮光窗帘，减少噪音干扰。</p>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="w-full bg-lavender text-white py-3 rounded-xl font-medium mt-4">
-                            开始30天睡眠改善计划
+                        <p class="text-soft-lavender text-sm mb-4">完成专业的睡眠健康问卷，我们的睡眠专家将根据您的睡眠数据和问卷结果，为您提供个性化的睡眠健康评估报告和改善建议。</p>
+                        <button class="w-full py-2 bg-lavender text-white rounded-xl text-sm font-medium">
+                            开始评估
                         </button>
                     </div>
                 </div>
@@ -1205,7 +899,7 @@
                         <i class="fas fa-home text-xl"></i>
                         <span class="text-xs mt-1">首页</span>
                     </div>
-                    <div class="tab-item text-lavender">
+                    <div class="tab-item text-white text-opacity-50">
                         <i class="fas fa-chart-line text-xl"></i>
                         <span class="text-xs mt-1">报告</span>
                     </div>
@@ -1215,10 +909,273 @@
                         </div>
                     </div>
                     <div class="tab-item text-white text-opacity-50">
-                        <i class="fas fa-headphones text-xl"></i>
-                        <span class="text-xs mt-1">助眠</span>
+                        <i class="fas fa-shopping-bag text-xl"></i>
+                        <span class="text-xs mt-1">集市</span>
+                    </div>
+                    <div class="tab-item text-lavender">
+                        <i class="fas fa-user text-xl"></i>
+                        <span class="text-xs mt-1">我的</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 医疗资源详情页面 -->
+            <div class="screen">
+                <!-- 背景图片 -->
+                <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="星空背景" class="full-bg">
+                <div class="overlay"></div>
+                
+                <!-- 状态栏 -->
+                <div class="status-bar">
+                    <div class="text-sm font-semibold text-white">9:41</div>
+                    <div class="flex space-x-2 text-white">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                </div>
+                
+                <!-- 内容区域 -->
+                <div class="content px-6 py-4">
+                    <!-- 顶部导航 -->
+                    <div class="flex items-center mb-6">
+                        <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white mr-4">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <h1 class="text-2xl font-light text-white">失眠症</h1>
+                    </div>
+                    
+                    <!-- 疾病介绍 -->
+                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-4 flex-shrink-0">
+                                <i class="fas fa-moon"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-white font-medium">什么是失眠症？</h2>
+                                <p class="text-soft-lavender text-xs">影响全球约30%的人群</p>
+                            </div>
+                        </div>
+                        <p class="text-soft-lavender text-sm mb-4">失眠症是一种常见的睡眠障碍，表现为难以入睡、难以保持睡眠、早醒或睡眠质量差，并导致白天功能受损。当这些问题每周至少出现三次，持续至少三个月，且造成明显的痛苦或功能障碍时，可诊断为慢性失眠症。</p>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3 flex-shrink-0">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="text-white text-sm">入睡困难：躺在床上超过30分钟仍无法入睡</p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3 flex-shrink-0">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="text-white text-sm">睡眠维持困难：夜间频繁醒来且难以再次入睡</p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3 flex-shrink-0">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="text-white text-sm">早醒：比预期醒来时间提前醒来且无法再次入睡</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 症状自测 -->
+                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
+                        <h2 class="text-lg font-medium text-white mb-4">失眠症状自测</h2>
+                        <p class="text-soft-lavender text-sm mb-4">以下问题如果您有超过3项符合，且持续超过1个月，建议咨询专业医生。</p>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 rounded-md border border-lavender flex items-center justify-center mr-3 flex-shrink-0">
+                                    <i class="fas fa-check text-lavender text-xs"></i>
+                                </div>
+                                <p class="text-white text-sm">入睡时间通常超过30分钟</p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 rounded-md border border-lavender flex items-center justify-center mr-3 flex-shrink-0">
+                                    <i class="fas fa-check text-lavender text-xs"></i>
+                                </div>
+                                <p class="text-white text-sm">每晚醒来3次以上</p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 rounded-md border border-lavender mr-3 flex-shrink-0">
+                                </div>
+                                <p class="text-white text-sm">醒来后感觉未得到充分休息</p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 rounded-md border border-lavender mr-3 flex-shrink-0">
+                                </div>
+                                <p class="text-white text-sm">白天感到疲劳、注意力不集中</p>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 rounded-md border border-lavender mr-3 flex-shrink-0">
+                                </div>
+                                <p class="text-white text-sm">对睡眠有过度担忧或焦虑</p>
+                            </div>
+                        </div>
+                        <button class="w-full py-2 bg-lavender text-white rounded-xl text-sm font-medium mt-4">
+                            完成详细评估
+                        </button>
+                    </div>
+                    
+                    <!-- 治疗方法 -->
+                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
+                        <h2 class="text-lg font-medium text-white mb-4">治疗方法</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3 flex-shrink-0">
+                                        <i class="fas fa-brain"></i>
+                                    </div>
+                                    <h3 class="text-white font-medium">认知行为疗法 (CBT-I)</h3>
+                                </div>
+                                <p class="text-soft-lavender text-sm ml-13">失眠的一线治疗方法，通过改变不良的睡眠习惯和思维模式来改善睡眠。研究表明，CBT-I对70-80%的失眠患者有效。</p>
+                            </div>
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3 flex-shrink-0">
+                                        <i class="fas fa-pills"></i>
+                                    </div>
+                                    <h3 class="text-white font-medium">药物治疗</h3>
+                                </div>
+                                <p class="text-soft-lavender text-sm ml-13">短期使用安眠药可能有助于缓解症状，但长期使用可能导致依赖性和耐药性。应在医生指导下使用。</p>
+                            </div>
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3 flex-shrink-0">
+                                        <i class="fas fa-spa"></i>
+                                    </div>
+                                    <h3 class="text-white font-medium">放松技术</h3>
+                                </div>
+                                <p class="text-soft-lavender text-sm ml-13">包括渐进性肌肉放松、冥想、深呼吸等技术，有助于减轻身体紧张和焦虑，促进入睡。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 推荐专家 -->
+                    <div class="mb-6">
+                        <h2 class="text-lg font-medium text-white mb-4">失眠专家推荐</h2>
+                        <div class="space-y-4">
+                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4">
+                                <div class="flex items-start">
+                                    <div class="w-16 h-16 rounded-full bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <h3 class="text-white font-medium">张医生</h3>
+                                                <p class="text-soft-lavender text-xs mb-1">失眠治疗专家 · 北京睡眠中心</p>
+                                            </div>
+                                            <div class="bg-lavender bg-opacity-30 text-lavender text-xs px-2 py-1 rounded-full">
+                                                认证专家
+                                            </div>
+                                        </div>
+                                        <p class="text-soft-lavender text-xs mb-3">擅长认知行为疗法治疗失眠，已成功帮助超过1000名失眠患者。</p>
+                                        <div class="flex space-x-2">
+                                            <button class="flex-1 py-1.5 bg-lavender text-white rounded-lg text-xs">
+                                                在线咨询
+                                            </button>
+                                            <button class="flex-1 py-1.5 bg-lavender bg-opacity-30 text-lavender rounded-lg text-xs">
+                                                预约门诊
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 推荐产品 -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-lg font-medium text-white">改善失眠的产品</h2>
+                            <a href="#" class="text-lavender text-xs">查看全部</a>
+                        </div>
+                        <div class="flex overflow-x-auto space-x-4 pb-4">
+                            <div class="product-card">
+                                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl overflow-hidden mb-2">
+                                    <img src="https://images.unsplash.com/photo-1511295742362-92c96b1cf484?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=160&q=80" alt="睡眠冥想课程" class="w-full h-40 object-cover">
+                                    <div class="p-3">
+                                        <h3 class="text-white font-medium text-sm mb-1">失眠缓解冥想课程</h3>
+                                        <p class="text-soft-lavender text-xs mb-2">30天专业指导</p>
+                                        <div class="flex justify-between items-center">
+                                            <p class="text-white font-medium">¥199</p>
+                                            <button class="w-8 h-8 rounded-full bg-lavender flex items-center justify-center text-white">
+                                                <i class="fas fa-plus text-xs"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl overflow-hidden mb-2">
+                                    <img src="https://images.unsplash.com/photo-1631772559162-37b75a2d6235?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=160&q=80" alt="白噪音机" class="w-full h-40 object-cover">
+                                    <div class="p-3">
+                                        <h3 class="text-white font-medium text-sm mb-1">静音白噪音机</h3>
+                                        <p class="text-soft-lavender text-xs mb-2">10种自然声音</p>
+                                        <div class="flex justify-between items-center">
+                                            <p class="text-white font-medium">¥259</p>
+                                            <button class="w-8 h-8 rounded-full bg-lavender flex items-center justify-center text-white">
+                                                <i class="fas fa-plus text-xs"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl overflow-hidden mb-2">
+                                    <img src="https://images.unsplash.com/photo-1555977494-e51f7b4726cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=160&q=80" alt="遮光眼罩" class="w-full h-40 object-cover">
+                                    <div class="p-3">
+                                        <h3 class="text-white font-medium text-sm mb-1">3D立体遮光眼罩</h3>
+                                        <p class="text-soft-lavender text-xs mb-2">完全遮光设计</p>
+                                        <div class="flex justify-between items-center">
+                                            <p class="text-white font-medium">¥89</p>
+                                            <button class="w-8 h-8 rounded-full bg-lavender flex items-center justify-center text-white">
+                                                <i class="fas fa-plus text-xs"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 预约咨询 -->
+                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-lavender flex items-center justify-center text-white mr-4 flex-shrink-0">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-medium">专业失眠咨询</h3>
+                                <p class="text-soft-lavender text-xs">一对一专家指导，制定个性化改善方案</p>
+                            </div>
+                        </div>
+                        <p class="text-soft-lavender text-sm mb-4">我们的失眠专家团队将根据您的睡眠数据和具体情况，为您提供专业的失眠评估和个性化治疗方案，帮助您重获优质睡眠。</p>
+                        <button class="w-full py-2 bg-lavender text-white rounded-xl text-sm font-medium">
+                            预约专家咨询
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 底部导航 -->
+                <div class="bottom-tab absolute bottom-0 w-full backdrop-blur-sm bg-deep-blue bg-opacity-70 border-t border-ocean border-opacity-30">
+                    <div class="tab-item text-white text-opacity-50">
+                        <i class="fas fa-home text-xl"></i>
+                        <span class="text-xs mt-1">首页</span>
                     </div>
                     <div class="tab-item text-white text-opacity-50">
+                        <i class="fas fa-chart-line text-xl"></i>
+                        <span class="text-xs mt-1">报告</span>
+                    </div>
+                    <div class="tab-item text-white text-opacity-50">
+                        <div class="w-14 h-14 rounded-full bg-lavender flex items-center justify-center -mt-5 shadow-lg">
+                            <i class="fas fa-moon text-white text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="tab-item text-white text-opacity-50">
+                        <i class="fas fa-shopping-bag text-xl"></i>
+                        <span class="text-xs mt-1">集市</span>
+                    </div>
+                    <div class="tab-item text-lavender">
                         <i class="fas fa-user text-xl"></i>
                         <span class="text-xs mt-1">我的</span>
                     </div>
@@ -1226,4 +1183,7 @@
             </div>
         </div>
     </body>
-    </html>                            
+    </html>
+
+                    
+                    
