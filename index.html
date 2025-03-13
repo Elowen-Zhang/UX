@@ -1,202 +1,421 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sound Details</title>
+    <title>睡眠助手 - 让您的睡眠更健康</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#7C3AED',
-                        secondary: '#60A5FA'
-                    },
-                    borderRadius: {
-                        'none': '0px',
-                        'sm': '4px',
-                        DEFAULT: '8px',
-                        'md': '12px',
-                        'lg': '16px',
-                        'xl': '20px',
-                        '2xl': '24px',
-                        '3xl': '32px',
-                        'full': '9999px',
-                        'button': '8px'
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :where([class^="ri-"])::before { content: "\f3c2"; }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-        .pulse { animation: pulse 2s infinite; }
+        .ios-status-bar {
+            height: 44px;
+        }
+        .ios-bottom-bar {
+            height: 83px;
+        }
+        .chat-container {
+            height: calc(100vh - 127px);
+        }
+        .market-container {
+            height: calc(100vh - 127px);
+        }
+        
+        /* 星空动画效果 */
+        #stars {
+            background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)), 
+                            radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)), 
+                            radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        .shadow-glow {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+        
+        /* 呼吸动画 */
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
 </head>
-<body class="bg-white min-h-screen w-[375px] mx-auto relative">
-    <nav class="fixed top-0 w-full bg-white z-50 px-4 py-3 flex items-center justify-between border-b">
-        <button onclick="history.back()" class="w-10 h-10 flex items-center justify-center">
-            <i class="ri-arrow-left-line text-xl"></i>
-        </button>
-        <div class="w-10 h-10 flex items-center justify-center">
-            <i class="ri-more-2-line text-xl"></i>
-        </div>
-    </nav>
-
-    <main class="pt-16 pb-20 px-4">
-        <div class="relative w-full h-[240px] rounded-lg overflow-hidden mb-6">
-            <img src="https://public.readdy.ai/ai/img_res/0c2579c39f3fff7cbf407bd4f5fa6053.jpg" 
-                 class="w-full h-full object-cover" alt="Moonlight Serenity">
-            <div class="absolute inset-0 bg-black/20"></div>
-        </div>
-
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-2xl font-semibold">Moonlight Serenity</h1>
-            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Premium</span>
-        </div>
-
-        <div class="flex items-center gap-2 text-sm text-gray-500 mb-6">
-            <span>8 hours</span>
-            <span>•</span>
-            <span>Nature</span>
-            <span>•</span>
-            <span>Sleep</span>
-        </div>
-
-        <p class="text-gray-600 mb-8">
-            Experience the tranquil essence of a peaceful night with gentle waves and soft moonlight. This carefully crafted soundscape helps you achieve deeper sleep and relaxation.
-        </p>
-
-        <div class="bg-gray-50 rounded-lg p-4 mb-8">
-            <div class="flex justify-between items-center mb-4">
-                <div class="flex items-center gap-3">
-                    <div id="playButton" class="w-12 h-12 rounded-full bg-primary flex items-center justify-center cursor-pointer pulse">
-                        <i class="ri-play-fill text-white text-xl"></i>
-                    </div>
-                    <div>
-                        <div id="currentTime" class="text-sm font-medium">00:00</div>
-                        <div class="text-xs text-gray-500">8:00:00</div>
-                    </div>
-                </div>
-                <div class="w-8 h-8 flex items-center justify-center">
-                    <i class="ri-volume-up-line text-xl"></i>
+<body class="bg-gray-100">
+    <div class="flex flex-col items-center justify-center p-4 gap-8 max-w-md mx-auto">
+        <h1 class="text-2xl font-bold text-center mb-4">睡眠助手 APP - 页面展示</h1>
+        
+        <!-- 集市入口页面 -->
+        <div class="w-full bg-white rounded-3xl overflow-hidden shadow-lg">
+            <div class="ios-status-bar bg-black text-white flex justify-between items-center px-6">
+                <span>9:41</span>
+                <div class="flex items-center gap-1">
+                    <span class="material-icons text-sm">signal_cellular_alt</span>
+                    <span class="material-icons text-sm">wifi</span>
+                    <span class="material-icons text-sm">battery_full</span>
                 </div>
             </div>
-            <div class="w-full h-1 bg-gray-200 rounded-full">
-                <div id="progress" class="w-0 h-full bg-primary rounded-full transition-all"></div>
-            </div>
-        </div>
-        <div class="flex gap-4 mb-8">
-            <button class="flex-1 py-3 bg-primary text-white font-medium !rounded-button">
-                Start Free Trial
-            </button>
-            <button class="w-12 h-12 border border-gray-200 !rounded-button flex items-center justify-center">
-                <i class="ri-heart-line text-xl"></i>
-            </button>
-            <button class="w-12 h-12 border border-gray-200 !rounded-button flex items-center justify-center">
-                <i class="ri-share-line text-xl"></i>
-            </button>
-        </div>
-
-        <div class="bg-gray-50 rounded-lg p-4 mb-8">
-            <h2 class="font-semibold mb-4">Premium Benefits</h2>
-            <ul class="space-y-3">
-                <li class="flex items-center gap-3">
-                    <i class="ri-check-line text-primary"></i>
-                    <span class="text-sm">Unlimited access to all premium sounds</span>
-                </li>
-                <li class="flex items-center gap-3">
-                    <i class="ri-check-line text-primary"></i>
-                    <span class="text-sm">Offline downloads</span>
-                </li>
-                <li class="flex items-center gap-3">
-                    <i class="ri-check-line text-primary"></i>
-                    <span class="text-sm">Ad-free experience</span>
-                </li>
-            </ul>
-        </div>
-
-        <div>
-            <h2 class="font-semibold mb-4">Similar Sounds</h2>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="rounded-lg overflow-hidden cursor-pointer">
-                    <img src="https://public.readdy.ai/ai/img_res/3fd2069ebdcda181fb7b787a0a9080ef.jpg" 
-                         class="w-full h-[120px] object-cover" alt="Rainfall Whispers">
-                    <div class="p-2">
-                        <h3 class="font-medium text-sm">Rainfall Whispers</h3>
-                        <p class="text-xs text-gray-500">Nature • Free</p>
-                    </div>
-                </div>
-                <div class="rounded-lg overflow-hidden cursor-pointer">
-                    <img src="https://public.readdy.ai/ai/img_res/e447bcce3dd4e2881ef41eb087b7e5ef.jpg" 
-                         class="w-full h-[120px] object-cover" alt="Ocean Waves">
-                    <div class="p-2">
-                        <h3 class="font-medium text-sm">Ocean Waves</h3>
-                        <p class="text-xs text-gray-500">Nature • Premium</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        let isPlaying = false;
-        let progress = 0;
-        const playButton = document.getElementById('playButton');
-        const progressBar = document.getElementById('progress');
-        const currentTimeEl = document.getElementById('currentTime');
-        playButton.addEventListener('click', () => {
-            isPlaying = !isPlaying;
-            playButton.innerHTML = isPlaying ? 
-                '<i class="ri-pause-fill text-white text-xl"></i>' : 
-                '<i class="ri-play-fill text-white text-xl"></i>';
             
-            if (isPlaying) {
-                playButton.classList.remove('pulse');
-                startProgress();
-            } else {
-                playButton.classList.add('pulse');
-                stopProgress();
+            <div class="market-container overflow-y-auto">
+                <!-- 顶部导航 -->
+                <div class="px-4 py-3 flex justify-between items-center border-b border-gray-100">
+                    <h2 class="text-xl font-bold">集市</h2>
+                    <div class="flex items-center gap-3">
+                        <span class="material-icons text-gray-500">search</span>
+                        <span class="material-icons text-gray-500">notifications_none</span>
+                    </div>
+                </div>
+                
+                <!-- AI导诊入口 -->
+                <div class="p-4">
+                    <div class="bg-gradient-to-r from-indigo-900 to-purple-800 rounded-2xl overflow-hidden shadow-lg relative">
+                        <!-- 星空背景 -->
+                        <div class="absolute inset-0 overflow-hidden opacity-30">
+                            <div id="stars" class="absolute inset-0"></div>
+                        </div>
+                        
+                        <div class="p-6 relative z-10">
+                            <!-- 睡眠状态问候 -->
+                            <div class="mb-4">
+                                <h3 class="text-xl font-bold text-white" id="greeting">晚上好，需要改善睡眠吗？</h3>
+                                <p class="text-indigo-200 text-sm mt-1" id="sleep-status">您最近的睡眠质量似乎不太理想...</p>
+                            </div>
+                            
+                            <!-- AI助手形象 -->
+                            <div class="flex items-center gap-5 mb-5">
+                                <div class="relative">
+                                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center flex-shrink-0 shadow-glow overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1532456745301-b2c645d8b80d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="AI助手" class="w-full h-full object-cover">
+                                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-indigo-900/30 rounded-full"></div>
+                                    </div>
+                                    <div class="absolute -bottom-1 -right-1 w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center border-2 border-white">
+                                        <span class="material-icons text-white text-sm">nights_stay</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-1">
+                                    <div class="bg-white/20 backdrop-blur-sm p-3 rounded-2xl rounded-tl-none text-white">
+                                        <p class="text-sm">嗨！我是您的睡眠顾问"梦境守护者"。今晚想聊聊您的睡眠问题吗？</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 互动选项 -->
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <button class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-1">
+                                    <span class="material-icons text-sm">bedtime</span>
+                                    <span>难以入睡</span>
+                                </button>
+                                <button class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-1">
+                                    <span class="material-icons text-sm">alarm</span>
+                                    <span>频繁醒来</span>
+                                </button>
+                                <button class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-1">
+                                    <span class="material-icons text-sm">psychology</span>
+                                    <span>睡眠焦虑</span>
+                                </button>
+                            </div>
+                            
+                            <!-- 开始咨询按钮 -->
+                            <button id="start-consult" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 shadow-lg">
+                                <span class="material-icons animate-pulse">nightlight</span>
+                                <span>开启睡眠咨询之旅</span>
+                                <span class="material-icons">arrow_forward</span>
+                            </button>
+                            
+                            <!-- 用户反馈 -->
+                            <div class="mt-3 flex items-center justify-between text-xs text-indigo-200">
+                                <div class="flex items-center gap-1">
+                                    <span class="material-icons text-xs">favorite</span>
+                                    <span>98%用户好评</span>
+                                </div>
+                                <div>今日已帮助2,458人改善睡眠</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 热门推荐 -->
+                <div class="px-4 pt-2 pb-4">
+                    <h3 class="text-lg font-bold mb-3">热门推荐</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                            <img src="https://images.unsplash.com/photo-1511295742362-92c96b1cf484?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="助眠白噪音" class="w-full h-32 object-cover">
+                            <div class="p-3">
+                                <h4 class="font-medium">助眠白噪音</h4>
+                                <p class="text-xs text-gray-500 mt-1">缓解焦虑，促进深度睡眠</p>
+                                <div class="flex items-center justify-between mt-2">
+                                    <span class="text-indigo-600 font-bold">¥18.00</span>
+                                    <span class="text-xs text-gray-400">2.3万人使用</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="冥想引导" class="w-full h-32 object-cover">
+                            <div class="p-3">
+                                <h4 class="font-medium">冥想引导</h4>
+                                <p class="text-xs text-gray-500 mt-1">放松身心，改善睡眠质量</p>
+                                <div class="flex items-center justify-between mt-2">
+                                    <span class="text-indigo-600 font-bold">¥24.00</span>
+                                    <span class="text-xs text-gray-400">1.8万人使用</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 睡眠好物 -->
+                <div class="px-4 pt-2 pb-6">
+                    <h3 class="text-lg font-bold mb-3">睡眠好物</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                            <img src="https://images.unsplash.com/photo-1584473457409-ce95a9573e86?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="助眠精油" class="w-full h-32 object-cover">
+                            <div class="p-3">
+                                <h4 class="font-medium">薰衣草助眠精油</h4>
+                                <p class="text-xs text-gray-500 mt-1">天然植物萃取，舒缓神经</p>
+                                <div class="flex items-center justify-between mt-2">
+                                    <span class="text-indigo-600 font-bold">¥89.00</span>
+                                    <span class="text-xs text-gray-400">4.9分 | 2千+评</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                            <img src="https://images.unsplash.com/photo-1613946069412-38f7f1ff0b65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="睡眠眼罩" class="w-full h-32 object-cover">
+                            <div class="p-3">
+                                <h4 class="font-medium">3D立体睡眠眼罩</h4>
+                                <p class="text-xs text-gray-500 mt-1">完全遮光，不压迫眼部</p>
+                                <div class="flex items-center justify-between mt-2">
+                                    <span class="text-indigo-600 font-bold">¥59.00</span>
+                                    <span class="text-xs text-gray-400">4.8分 | 3千+评</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 底部导航栏 -->
+            <div class="ios-bottom-bar bg-white border-t border-gray-200 flex justify-around items-center px-2">
+                <div class="flex flex-col items-center">
+                    <span class="material-icons text-gray-400">home</span>
+                    <span class="text-xs text-gray-400">首页</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="material-icons text-indigo-600">storefront</span>
+                    <span class="text-xs text-indigo-600">集市</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="material-icons text-gray-400">analytics</span>
+                    <span class="text-xs text-gray-400">报告</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="material-icons text-gray-400">person</span>
+                    <span class="text-xs text-gray-400">我的</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI聊天页面 -->
+        <div class="w-full bg-white rounded-3xl overflow-hidden shadow-lg">
+            <div class="ios-status-bar bg-black text-white flex justify-between items-center px-6">
+                <span>9:41</span>
+                <div class="flex items-center gap-1">
+                    <span class="material-icons text-sm">signal_cellular_alt</span>
+                    <span class="material-icons text-sm">wifi</span>
+                    <span class="material-icons text-sm">battery_full</span>
+                </div>
+            </div>
+            
+            <div class="chat-container flex flex-col">
+                <!-- 顶部导航 -->
+                <div class="px-4 py-3 flex justify-between items-center border-b border-gray-100">
+                    <button class="material-icons text-gray-500">arrow_back_ios</button>
+                    <h2 class="text-lg font-bold">AI睡眠导诊</h2>
+                    <button class="material-icons text-gray-500">more_horiz</button>
+                </div>
+                
+                <!-- 聊天区域 -->
+                <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+                    <!-- AI欢迎消息 -->
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="material-icons text-white">psychology</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm">
+                            <p class="text-gray-800">您好！我是您的睡眠AI顾问。我可以帮您分析睡眠问题并提供个性化建议。请告诉我您最近的睡眠情况如何？</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 用户消息 -->
+                    <div class="flex items-start gap-3 justify-end">
+                        <div class="bg-indigo-600 p-3 rounded-2xl rounded-tr-none max-w-[80%] shadow-sm">
+                            <p class="text-white">最近我总是很难入睡，躺在床上要一个多小时才能睡着，白天也感觉很疲惫。</p>
+                        </div>
+                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="material-icons text-gray-500">person</span>
+                        </div>
+                    </div>
+                    
+                    <!-- AI回复 -->
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="material-icons text-white">psychology</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm">
+                            <p class="text-gray-800">了解了。入睡困难可能与多种因素有关，如压力、不规律的作息、使用电子设备等。</p>
+                            <p class="text-gray-800 mt-2">请问您睡前有使用手机或其他电子设备的习惯吗？睡前的环境是否安静、黑暗？</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 用户消息 -->
+                    <div class="flex items-start gap-3 justify-end">
+                        <div class="bg-indigo-600 p-3 rounded-2xl rounded-tr-none max-w-[80%] shadow-sm">
+                            <p class="text-white">是的，我通常会刷手机到很晚，有时候房间也不够暗，而且最近工作压力比较大。</p>
+                        </div>
+                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="material-icons text-gray-500">person</span>
+                        </div>
+                    </div>
+                    
+                    <!-- AI回复与推荐 -->
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="material-icons text-white">psychology</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm">
+                            <p class="text-gray-800">根据您的描述，我有以下建议：</p>
+                            <ol class="list-decimal pl-5 mt-2 space-y-1 text-gray-800">
+                                <li>睡前1-2小时避免使用电子设备</li>
+                                <li>保持卧室黑暗、安静、凉爽</li>
+                                <li>建立规律的睡眠时间表</li>
+                                <li>尝试睡前放松活动，如冥想或深呼吸</li>
+                            </ol>
+                            <p class="text-gray-800 mt-2">我还为您推荐了一些可能有帮助的产品：</p>
+                            
+                            <!-- 推荐产品卡片 -->
+                            <div class="mt-3 space-y-3">
+                                <div class="bg-gray-50 rounded-xl p-3 flex gap-3">
+                                    <img src="https://images.unsplash.com/photo-1613946069412-38f7f1ff0b65?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=60" alt="睡眠眼罩" class="w-16 h-16 rounded-lg object-cover">
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-sm">3D立体睡眠眼罩</h4>
+                                        <p class="text-xs text-gray-500 mt-1">完全遮光，帮助您更快入睡</p>
+                                        <div class="flex justify-between items-center mt-1">
+                                            <span class="text-indigo-600 text-sm font-bold">¥59.00</span>
+                                            <button class="bg-indigo-600 text-white text-xs px-3 py-1 rounded-full">查看</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gray-50 rounded-xl p-3 flex gap-3">
+                                    <img src="https://images.unsplash.com/photo-1511295742362-92c96b1cf484?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=60" alt="助眠白噪音" class="w-16 h-16 rounded-lg object-cover">
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-sm">助眠白噪音</h4>
+                                        <p class="text-xs text-gray-500 mt-1">掩盖环境噪音，促进深度睡眠</p>
+                                        <div class="flex justify-between items-center mt-1">
+                                            <span class="text-indigo-600 text-sm font-bold">¥18.00</span>
+                                            <button class="bg-indigo-600 text-white text-xs px-3 py-1 rounded-full">试听</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 输入区域 -->
+                <div class="p-3 border-t border-gray-200 bg-white">
+                    <div class="flex items-center gap-2">
+                        <button class="material-icons text-gray-400 p-2">mic</button>
+                        <div class="flex-1 bg-gray-100 rounded-full px-4 py-2 flex items-center">
+                            <input type="text" placeholder="请输入您的问题..." class="bg-transparent w-full outline-none text-gray-800">
+                            <button class="material-icons text-gray-400">sentiment_satisfied_alt</button>
+                        </div>
+                        <button class="material-icons text-indigo-600 p-2">send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 交互逻辑 -->
+    <script>
+        /**
+         * 初始化页面交互
+         * @description 为页面元素添加点击事件和交互逻辑
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            // 根据时间更新问候语
+            const updateGreeting = () => {
+                const hour = new Date().getHours();
+                const greeting = document.getElementById('greeting');
+                if (greeting) {
+                    if (hour >= 5 && hour < 12) {
+                        greeting.textContent = '早上好，昨晚睡得如何？';
+                    } else if (hour >= 12 && hour < 18) {
+                        greeting.textContent = '下午好，感觉疲惫吗？';
+                    } else if (hour >= 18 && hour < 22) {
+                        greeting.textContent = '晚上好，准备好今晚的睡眠了吗？';
+                    } else {
+                        greeting.textContent = '夜深了，还没睡吗？';
+                    }
+                }
+            };
+            
+            updateGreeting();
+            
+            // 模拟点击"开始咨询"按钮的效果
+            const consultButton = document.getElementById('start-consult');
+            if (consultButton) {
+                consultButton.addEventListener('click', function() {
+                    alert('正在进入您的专属睡眠咨询空间...');
+                });
+            }
+            
+            // 快捷选项按钮点击效果
+            const quickOptions = document.querySelectorAll('.bg-white\\/20.rounded-full');
+            if (quickOptions.length > 0) {
+                quickOptions.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const problem = this.textContent.trim();
+                        alert(`您选择了"${problem}"，即将为您提供针对性建议...`);
+                    });
+                });
+            }
+            
+            // 模拟发送消息的效果
+            const sendButton = document.querySelector('.material-icons.text-indigo-600');
+            const inputField = document.querySelector('input[type="text"]');
+            
+            if (sendButton && inputField) {
+                sendButton.addEventListener('click', function() {
+                    if (inputField.value.trim() !== '') {
+                        alert('消息已发送: ' + inputField.value);
+                        inputField.value = '';
+                    }
+                });
+                
+                // 按Enter键发送消息
+                inputField.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && inputField.value.trim() !== '') {
+                        alert('消息已发送: ' + inputField.value);
+                        inputField.value = '';
+                    }
+                });
             }
         });
-        let progressInterval;
-
-        function startProgress() {
-            progressInterval = setInterval(() => {
-                progress += 0.1;
-                if (progress > 100) {
-                    progress = 0;
-                    isPlaying = false;
-                    playButton.innerHTML = '<i class="ri-play-fill text-white text-xl"></i>';
-                    playButton.classList.add('pulse');
-                    stopProgress();
-                }
-                progressBar.style.width = `${progress}%`;
-                updateTime();
-            }, 100);
-        }
-
-        function stopProgress() {
-            clearInterval(progressInterval);
-        }
-
-        function updateTime() {
-            const totalSeconds = Math.floor((progress / 100) * 28800);
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
-            currentTimeEl.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        }
     </script>
 </body>
-</html>
+</html> 
