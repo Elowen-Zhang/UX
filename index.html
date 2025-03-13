@@ -1,1193 +1,202 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>睡眠APP - 附加页面</title>
+    <title>Sound Details</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'deep-blue': '#0f172a',
-                        'midnight': '#1e293b',
-                        'ocean': '#334155',
-                        'lavender': '#7c3aed',
-                        'light-lavender': '#a78bfa',
-                        'soft-lavender': '#c4b5fd'
+                        primary: '#7C3AED',
+                        secondary: '#60A5FA'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
                     }
                 }
             }
         }
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
-        .screen {
-            width: 375px;
-            height: 812px;
-            overflow: hidden;
-            position: relative;
-            border-radius: 40px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            margin: 20px;
-            display: inline-block;
-            vertical-align: top;
-        }
-        .status-bar {
-            height: 44px;
-            padding: 0 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10;
-            position: relative;
-        }
-        .bottom-tab {
-            height: 83px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 10;
-            position: relative;
-        }
-        .tab-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 20%;
-        }
-        .full-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(15,23,42,0.8), rgba(15,23,42,0.95));
-            z-index: 1;
-        }
-        .content {
-            position: relative;
-            z-index: 2;
-            height: calc(100% - 127px); /* 减去状态栏和底部导航的高度 */
-            overflow-y: auto;
-        }
-        .content::-webkit-scrollbar {
-            display: none;
-        }
-        .search-item {
-            flex: 0 0 auto;
-            width: 160px;
-        }
+        .pulse { animation: pulse 2s infinite; }
     </style>
 </head>
-<body class="bg-gray-100 p-4">
-    <div class="flex flex-wrap justify-center">
-        <!-- 购物车页面 -->
-        <div class="screen">
-            <!-- 背景图片 -->
-            <img src="https://images.unsplash.com/photo-1572025442646-866d16c84a54?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="星空背景" class="full-bg">
-            <div class="overlay"></div>
-            
-            <!-- 状态栏 -->
-            <div class="status-bar">
-                <div class="text-sm font-semibold text-white">9:41</div>
-                <div class="flex space-x-2 text-white">
-                    <i class="fas fa-signal"></i>
-                    <i class="fas fa-wifi"></i>
-                    <i class="fas fa-battery-full"></i>
+<body class="bg-white min-h-screen w-[375px] mx-auto relative">
+    <nav class="fixed top-0 w-full bg-white z-50 px-4 py-3 flex items-center justify-between border-b">
+        <button onclick="history.back()" class="w-10 h-10 flex items-center justify-center">
+            <i class="ri-arrow-left-line text-xl"></i>
+        </button>
+        <div class="w-10 h-10 flex items-center justify-center">
+            <i class="ri-more-2-line text-xl"></i>
+        </div>
+    </nav>
+
+    <main class="pt-16 pb-20 px-4">
+        <div class="relative w-full h-[240px] rounded-lg overflow-hidden mb-6">
+            <img src="https://public.readdy.ai/ai/img_res/0c2579c39f3fff7cbf407bd4f5fa6053.jpg" 
+                 class="w-full h-full object-cover" alt="Moonlight Serenity">
+            <div class="absolute inset-0 bg-black/20"></div>
+        </div>
+
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-2xl font-semibold">Moonlight Serenity</h1>
+            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Premium</span>
+        </div>
+
+        <div class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+            <span>8 hours</span>
+            <span>•</span>
+            <span>Nature</span>
+            <span>•</span>
+            <span>Sleep</span>
+        </div>
+
+        <p class="text-gray-600 mb-8">
+            Experience the tranquil essence of a peaceful night with gentle waves and soft moonlight. This carefully crafted soundscape helps you achieve deeper sleep and relaxation.
+        </p>
+
+        <div class="bg-gray-50 rounded-lg p-4 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center gap-3">
+                    <div id="playButton" class="w-12 h-12 rounded-full bg-primary flex items-center justify-center cursor-pointer pulse">
+                        <i class="ri-play-fill text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <div id="currentTime" class="text-sm font-medium">00:00</div>
+                        <div class="text-xs text-gray-500">8:00:00</div>
+                    </div>
+                </div>
+                <div class="w-8 h-8 flex items-center justify-center">
+                    <i class="ri-volume-up-line text-xl"></i>
                 </div>
             </div>
-            
-            <!-- 内容区域 -->
-            <div class="content px-6 py-4">
-                <!-- 顶部导航 -->
-                <div class="flex items-center mb-6">
-                    <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white mr-4">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <h1 class="text-2xl font-light text-white">购物车</h1>
-                </div>
-                
-                <!-- 购物车商品列表 -->
-                <div class="space-y-4 mb-6">
-                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4">
-                        <div class="flex items-center mb-3">
-                            <div class="w-6 h-6 rounded-md border border-lavender flex items-center justify-center mr-3 flex-shrink-0">
-                                <i class="fas fa-check text-lavender text-xs"></i>
-                            </div>
-                            <p class="text-white text-sm font-medium">全选</p>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="flex">
-                                <div class="w-6 h-6 rounded-md border border-lavender flex items-center justify-center mr-3 flex-shrink-0 mt-2">
-                                    <i class="fas fa-check text-lavender text-xs"></i>
-                                </div>
-                                <div class="w-20 h-20 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
-                                <div class="flex-1">
-                                    <h3 class="text-white font-medium mb-1">智能睡眠监测器</h3>
-                                    <p class="text-soft-lavender text-xs mb-2">实时监测睡眠质量</p>
-                                    <div class="flex justify-between items-center">
-                                        <p class="text-white font-medium">¥299</p>
-                                        <div class="flex items-center">
-                                            <button class="w-8 h-8 rounded-full bg-ocean bg-opacity-30 flex items-center justify-center text-white">
-                                                <i class="fas fa-minus text-xs"></i>
-                                            </button>
-                                            <span class="text-white mx-3">1</span>
-                                            <button class="w-8 h-8 rounded-full bg-lavender flex items-center justify-center text-white">
-                                                <i class="fas fa-plus text-xs"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex">
-                                <div class="w-6 h-6 rounded-md border border-lavender flex items-center justify-center mr-3 flex-shrink-0 mt-2">
-                                    <i class="fas fa-check text-lavender text-xs"></i>
-                                </div>
-                                <div class="w-20 h-20 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1584473457409-ae5c91d7d8b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
-                                <div class="flex-1">
-                                    <h3 class="text-white font-medium mb-1">助眠香薰精油</h3>
-                                    <p class="text-soft-lavender text-xs mb-2">薰衣草+洋甘菊</p>
-                                    <div class="flex justify-between items-center">
-                                        <p class="text-white font-medium">¥129</p>
-                                        <div class="flex items-center">
-                                            <button class="w-8 h-8 rounded-full bg-ocean bg-opacity-30 flex items-center justify-center text-white">
-                                                <i class="fas fa-minus text-xs"></i>
-                                            </button>
-                                            <span class="text-white mx-3">2</span>
-                                            <button class="w-8 h-8 rounded-full bg-lavender flex items-center justify-center text-white">
-                                                <i class="fas fa-plus text-xs"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 猜你喜欢 -->
-                <div class="mb-6">
-                    <h2 class="text-lg font-medium text-white mb-4">猜你喜欢</h2>
-                    <div class="flex overflow-x-auto space-x-4 pb-4">
-                        <div class="search-item">
-                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl overflow-hidden mb-2">
-                                <img src="https://images.unsplash.com/photo-1631772559162-37b75a2d6235?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=160&q=80" alt="白噪音机" class="w-full h-40 object-cover">
-                                <div class="p-3">
-                                    <h3 class="text-white font-medium text-sm mb-1">静音白噪音机</h3>
-                                    <p class="text-soft-lavender text-xs mb-2">10种自然声音</p>
-                                    <div class="flex justify-between items-center">
-                                        <p class="text-white font-medium">¥259</p>
-                                        <button class="w-8 h-8 rounded-full bg-lavender flex items-center justify-center text-white">
-                                            <i class="fas fa-plus text-xs"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="search-item">
-                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl overflow-hidden mb-2">
-                                <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=160&q=80" alt="记忆棉颈椎枕" class="w-full h-40 object-cover">
-                                <div class="p-3">
-                                    <h3 class="text-white font-medium text-sm mb-1">记忆棉颈椎枕</h3>
-                                    <p class="text-soft-lavender text-xs mb-2">缓解颈部压力</p>
-                                    <div class="flex justify-between items-center">
-                                        <p class="text-white font-medium">¥189</p>
-                                        <button class="w-8 h-8 rounded-full bg-lavender flex items-center justify-center text-white">
-                                            <i class="fas fa-plus text-xs"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 优惠券 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4 mb-6">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                <i class="fas fa-ticket-alt"></i>
-                            </div>
-                            <div>
-                                <p class="text-white font-medium">优惠券</p>
-                                <p class="text-soft-lavender text-xs">2张可用</p>
-                            </div>
-                        </div>
-                        <button class="px-3 py-1 bg-lavender bg-opacity-30 text-lavender rounded-lg text-xs">
-                            选择优惠券
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- 结算栏 -->
-                <div class="fixed bottom-[83px] left-0 right-0 bg-midnight bg-opacity-80 backdrop-blur-sm p-4 z-10 mx-6 rounded-t-2xl">
-                    <div class="flex justify-between items-center mb-3">
-                        <div>
-                            <p class="text-white text-sm">总计：<span class="text-xl font-medium">¥557</span></p>
-                            <p class="text-soft-lavender text-xs">共3件商品，已优惠¥0</p>
-                        </div>
-                        <button class="px-6 py-2 bg-lavender text-white rounded-full text-sm font-medium">
-                            结算
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 底部导航 -->
-            <div class="bottom-tab absolute bottom-0 w-full backdrop-blur-sm bg-deep-blue bg-opacity-70 border-t border-ocean border-opacity-30">
-                <div class="tab-item text-white text-opacity-50">
-                    <i class="fas fa-home text-xl"></i>
-                    <span class="text-xs mt-1">首页</span>
-                </div>
-                <div class="tab-item text-white text-opacity-50">
-                    <i class="fas fa-chart-line text-xl"></i>
-                    <span class="text-xs mt-1">报告</span>
-                </div>
-                <div class="tab-item text-white text-opacity-50">
-                    <div class="w-14 h-14 rounded-full bg-lavender flex items-center justify-center -mt-5 shadow-lg">
-                        <i class="fas fa-moon text-white text-xl"></i>
-                    </div>
-                </div>
-                <div class="tab-item text-lavender">
-                    <i class="fas fa-shopping-bag text-xl"></i>
-                    <span class="text-xs mt-1">集市</span>
-                </div>
-                <div class="tab-item text-white text-opacity-50">
-                    <i class="fas fa-user text-xl"></i>
-                    <span class="text-xs mt-1">我的</span>
-                </div>
+            <div class="w-full h-1 bg-gray-200 rounded-full">
+                <div id="progress" class="w-0 h-full bg-primary rounded-full transition-all"></div>
             </div>
         </div>
-        
-        <!-- 声音详情页面 -->
-        <div class="screen">
-            <!-- 背景图片 -->
-            <img src="https://images.unsplash.com/photo-1498496294664-d9372eb521f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="森林背景" class="full-bg">
-            <div class="overlay bg-gradient-to-b from-deep-blue/70 to-deep-blue/90"></div>
-            
-            <!-- 状态栏 -->
-            <div class="status-bar">
-                <div class="text-sm font-semibold text-white">9:41</div>
-                <div class="flex space-x-2 text-white">
-                    <i class="fas fa-signal"></i>
-                    <i class="fas fa-wifi"></i>
-                    <i class="fas fa-battery-full"></i>
-                </div>
-            </div>
-            
-            <!-- 内容区域 -->
-            <div class="content flex flex-col">
-                <!-- 顶部导航 -->
-                <div class="px-6 py-4 flex justify-between items-center">
-                    <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                        <i class="fas fa-ellipsis-h"></i>
-                    </button>
-                </div>
-                
-                <!-- 声音信息 -->
-                <div class="flex-1 flex flex-col items-center justify-center px-6">
-                    <div class="w-48 h-48 rounded-full bg-cover bg-center mb-8 border-4 border-lavender border-opacity-30" style="background-image: url('https://images.unsplash.com/photo-1498496294664-d9372eb521f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=375&q=80')"></div>
-                    
-                    <h1 class="text-2xl font-medium text-white mb-2 text-center">雨林白噪音</h1>
-                    <p class="text-soft-lavender text-sm mb-6 text-center">热带雨林的自然声音，帮助你快速入睡</p>
-                    
-                    <div class="flex space-x-4 mb-8">
-                        <div class="bg-ocean bg-opacity-30 backdrop-blur-sm rounded-full px-3 py-1 text-sm text-white">
-                            <i class="fas fa-clock mr-1"></i> 60分钟
-                        </div>
-                        <div class="bg-ocean bg-opacity-30 backdrop-blur-sm rounded-full px-3 py-1 text-sm text-white">
-                            <i class="fas fa-volume-up mr-1"></i> 白噪音
-                        </div>
-                        <div class="bg-ocean bg-opacity-30 backdrop-blur-sm rounded-full px-3 py-1 text-sm text-white">
-                            <i class="fas fa-heart mr-1"></i> 4.9
-                        </div>
-                    </div>
-                    
-                    <!-- 播放控制 -->
-                    <div class="w-full mb-6">
-                        <div class="w-full h-1 bg-white bg-opacity-20 rounded-full mb-2">
-                            <div class="h-full w-1/3 bg-lavender rounded-full"></div>
-                        </div>
-                        <div class="flex justify-between text-xs text-soft-lavender">
-                            <span>20:15</span>
-                            <span>60:00</span>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center justify-between w-full mb-8">
-                        <button class="w-12 h-12 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                            <i class="fas fa-step-backward"></i>
-                        </button>
-                        <button class="w-16 h-16 rounded-full bg-lavender flex items-center justify-center text-white">
-                            <i class="fas fa-pause text-xl"></i>
-                        </button>
-                        <button class="w-12 h-12 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                            <i class="fas fa-step-forward"></i>
-                        </button>
-                    </div>
-                    
-                    <!-- 混音控制 -->
-                    <div class="w-full bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4 mb-6">
-                        <h3 class="text-white font-medium mb-3">混音</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">雨声</p>
-                                    <p class="text-soft-lavender text-xs">80%</p>
-                                </div>
-                                <div class="w-full h-1 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-lavender rounded-full" style="width: 80%;"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">鸟鸣</p>
-                                    <p class="text-soft-lavender text-xs">50%</p>
-                                </div>
-                                <div class="w-full h-1 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-lavender rounded-full" style="width: 50%;"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <p class="text-white text-sm">溪流</p>
-                                    <p class="text-soft-lavender text-xs">30%</p>
-                                </div>
-                                <div class="w-full h-1 bg-ocean bg-opacity-30 rounded-full">
-                                    <div class="h-full bg-lavender rounded-full" style="width: 30%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 底部控制 -->
-                <div class="px-6 py-4 flex justify-between items-center">
-                    <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                        <i class="fas fa-volume-up"></i>
-                    </button>
-                    <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                        <i class="fas fa-clock"></i>
-                    </button>
-                    <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white">
-                        <i class="fas fa-list"></i>
-                    </button>
-                    <button class="w-10 h-10 rounded-full bg-lavender flex items-center justify-center text-white">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                </div>
-            </div>
+        <div class="flex gap-4 mb-8">
+            <button class="flex-1 py-3 bg-primary text-white font-medium !rounded-button">
+                Start Free Trial
+            </button>
+            <button class="w-12 h-12 border border-gray-200 !rounded-button flex items-center justify-center">
+                <i class="ri-heart-line text-xl"></i>
+            </button>
+            <button class="w-12 h-12 border border-gray-200 !rounded-button flex items-center justify-center">
+                <i class="ri-share-line text-xl"></i>
+            </button>
         </div>
-        
-        <!-- 设置页面 -->
-        <div class="screen">
-            <!-- 背景图片 -->
-            <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="星空背景" class="full-bg">
-            <div class="overlay"></div>
-            
-            <!-- 状态栏 -->
-            <div class="status-bar">
-                <div class="text-sm font-semibold text-white">9:41</div>
-                <div class="flex space-x-2 text-white">
-                    <i class="fas fa-signal"></i>
-                    <i class="fas fa-wifi"></i>
-                    <i class="fas fa-battery-full"></i>
-                </div>
-            </div>
-            
-            <!-- 内容区域 -->
-            <div class="content px-6 py-4">
-                <!-- 顶部导航 -->
-                <div class="flex items-center mb-6">
-                    <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white mr-4">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <h1 class="text-2xl font-light text-white">设置</h1>
-                </div>
-                
-                <!-- 账户设置 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl mb-6">
-                    <div class="p-4 border-b border-ocean border-opacity-30">
-                        <h2 class="text-white font-medium mb-4">账户</h2>
-                        <div class="flex items-center">
-                            <div class="w-16 h-16 rounded-full bg-cover bg-center mr-4 border-2 border-lavender border-opacity-30" style="background-image: url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
-                            <div class="flex-1">
-                                <p class="text-white font-medium">李明</p>
-                                <p class="text-soft-lavender text-xs">编辑个人资料</p>
-                            </div>
-                            <i class="fas fa-chevron-right text-soft-lavender"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="p-4 border-b border-ocean border-opacity-30 flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                <i class="fas fa-crown"></i>
-                            </div>
-                            <p class="text-white font-medium">会员管理</p>
-                        </div>
-                        <i class="fas fa-chevron-right text-soft-lavender"></i>
-                    </div>
-                    
-                    <div class="p-4 flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                <i class="fas fa-shopping-bag"></i>
-                            </div>
-                            <p class="text-white font-medium">订单管理</p>
-                        </div>
-                        <i class="fas fa-chevron-right text-soft-lavender"></i>
+
+        <div class="bg-gray-50 rounded-lg p-4 mb-8">
+            <h2 class="font-semibold mb-4">Premium Benefits</h2>
+            <ul class="space-y-3">
+                <li class="flex items-center gap-3">
+                    <i class="ri-check-line text-primary"></i>
+                    <span class="text-sm">Unlimited access to all premium sounds</span>
+                </li>
+                <li class="flex items-center gap-3">
+                    <i class="ri-check-line text-primary"></i>
+                    <span class="text-sm">Offline downloads</span>
+                </li>
+                <li class="flex items-center gap-3">
+                    <i class="ri-check-line text-primary"></i>
+                    <span class="text-sm">Ad-free experience</span>
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <h2 class="font-semibold mb-4">Similar Sounds</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="rounded-lg overflow-hidden cursor-pointer">
+                    <img src="https://public.readdy.ai/ai/img_res/3fd2069ebdcda181fb7b787a0a9080ef.jpg" 
+                         class="w-full h-[120px] object-cover" alt="Rainfall Whispers">
+                    <div class="p-2">
+                        <h3 class="font-medium text-sm">Rainfall Whispers</h3>
+                        <p class="text-xs text-gray-500">Nature • Free</p>
                     </div>
                 </div>
-                
-                <!-- 通用设置 -->
-                <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl mb-6">
-                    <div class="p-4 border-b border-ocean border-opacity-30">
-                        <h2 class="text-white font-medium mb-2">通用</h2>
-                    </div>
-                    
-                    <div class="p-4 border-b border-ocean border-opacity-30 flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                <i class="fas fa-bell"></i>
-                            </div>
-                            <p class="text-white font-medium">通知设置</p>
-                        </div>
-                        <i class="fas fa-chevron-right text-soft-lavender"></i>
-                    </div>
-                    
-                    <div class="p-4 border-b border-ocean border-opacity-30 flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                <i class="fas fa-moon"></i>
-                            </div>
-                            <p class="text-white font-medium">睡眠提醒</p>
-                        </div>
-                        <div class="w-12 h-6 bg-lavender rounded-full relative px-1 flex items-center">
-                            <div class="w-4 h-4 bg-white rounded-full absolute right-1"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="p-4 border-b border-ocean border-opacity-30 flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                <i class="fas fa-language"></i>
-                            </div>
-                            <p class="text-white font-medium">语言</p>
-                        </div>
-                        <div class="p-4 border-b border-ocean border-opacity-30 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                    <i class="fas fa-language"></i>
-                                </div>
-                                <p class="text-white font-medium">语言</p>
-                            </div>
-                            <div class="flex items-center">
-                                <p class="text-soft-lavender mr-2">简体中文</p>
-                                <i class="fas fa-chevron-right text-soft-lavender"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="p-4 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                    <i class="fas fa-palette"></i>
-                                </div>
-                                <p class="text-white font-medium">主题</p>
-                            </div>
-                            <div class="flex items-center">
-                                <p class="text-soft-lavender mr-2">星空</p>
-                                <i class="fas fa-chevron-right text-soft-lavender"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 数据与隐私 -->
-                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl mb-6">
-                        <div class="p-4 border-b border-ocean border-opacity-30">
-                            <h2 class="text-white font-medium mb-2">数据与隐私</h2>
-                        </div>
-                        
-                        <div class="p-4 border-b border-ocean border-opacity-30 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                    <i class="fas fa-sync-alt"></i>
-                                </div>
-                                <p class="text-white font-medium">健康数据同步</p>
-                            </div>
-                            <i class="fas fa-chevron-right text-soft-lavender"></i>
-                        </div>
-                        
-                        <div class="p-4 border-b border-ocean border-opacity-30 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                    <i class="fas fa-shield-alt"></i>
-                                </div>
-                                <p class="text-white font-medium">隐私设置</p>
-                            </div>
-                            <i class="fas fa-chevron-right text-soft-lavender"></i>
-                        </div>
-                        
-                        <div class="p-4 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                    <i class="fas fa-database"></i>
-                                </div>
-                                <p class="text-white font-medium">清除缓存</p>
-                            </div>
-                            <div class="flex items-center">
-                                <p class="text-soft-lavender mr-2">128MB</p>
-                                <i class="fas fa-chevron-right text-soft-lavender"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 关于与支持 -->
-                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl mb-6">
-                        <div class="p-4 border-b border-ocean border-opacity-30 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                    <i class="fas fa-headset"></i>
-                                </div>
-                                <p class="text-white font-medium">客服支持</p>
-                            </div>
-                            <i class="fas fa-chevron-right text-soft-lavender"></i>
-                        </div>
-                        
-                        <div class="p-4 border-b border-ocean border-opacity-30 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <p class="text-white font-medium">评分与反馈</p>
-                            </div>
-                            <i class="fas fa-chevron-right text-soft-lavender"></i>
-                        </div>
-                        
-                        <div class="p-4 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mr-3">
-                                    <i class="fas fa-info-circle"></i>
-                                </div>
-                                <p class="text-white font-medium">关于我们</p>
-                            </div>
-                            <div class="flex items-center">
-                                <p class="text-soft-lavender mr-2">v2.5.1</p>
-                                <i class="fas fa-chevron-right text-soft-lavender"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="w-full py-3 bg-red-500 bg-opacity-20 text-red-400 rounded-xl font-medium mb-6">
-                        退出登录
-                    </button>
-                </div>
-            </div>
-            
-            <!-- 我的订单页面 -->
-            <div class="screen">
-                <!-- 背景图片 -->
-                <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="星空背景" class="full-bg">
-                <div class="overlay"></div>
-                
-                <!-- 状态栏 -->
-                <div class="status-bar">
-                    <div class="text-sm font-semibold text-white">9:41</div>
-                    <div class="flex space-x-2 text-white">
-                        <i class="fas fa-signal"></i>
-                        <i class="fas fa-wifi"></i>
-                        <i class="fas fa-battery-full"></i>
-                    </div>
-                </div>
-                
-                <!-- 内容区域 -->
-                <div class="content px-6 py-4">
-                    <!-- 顶部导航 -->
-                    <div class="flex items-center mb-6">
-                        <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white mr-4">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                        <h1 class="text-2xl font-light text-white">我的订单</h1>
-                    </div>
-                    
-                    <!-- 订单状态标签 -->
-                    <div class="flex space-x-2 mb-6 overflow-x-auto pb-2">
-                        <button class="px-4 py-2 bg-lavender text-white rounded-full text-sm whitespace-nowrap">全部</button>
-                        <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">待付款</button>
-                        <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">待发货</button>
-                        <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">待收货</button>
-                        <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">已完成</button>
-                    </div>
-                    
-                    <!-- 订单列表 -->
-                    <div class="space-y-4 mb-6">
-                        <!-- 待收货订单 -->
-                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4">
-                            <div class="flex justify-between items-center mb-3">
-                                <p class="text-soft-lavender text-xs">订单号：SL20230521001</p>
-                                <p class="text-lavender text-sm">待收货</p>
-                            </div>
-                            <div class="border-b border-ocean border-opacity-30 pb-3 mb-3">
-                                <div class="flex mb-3">
-                                    <div class="w-16 h-16 rounded-xl bg-cover bg-center mr-3 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
-                                    <div class="flex-1">
-                                        <h3 class="text-white text-sm font-medium mb-1">智能睡眠监测器</h3>
-                                        <p class="text-soft-lavender text-xs mb-1">实时监测睡眠质量</p>
-                                        <div class="flex justify-between">
-                                            <p class="text-white text-sm">¥299</p>
-                                            <p class="text-soft-lavender text-xs">x1</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mb-3">
-                                <p class="text-soft-lavender text-xs">2023-05-21 14:30</p>
-                                <p class="text-white text-sm">共1件商品 合计：<span class="font-medium">¥299</span></p>
-                            </div>
-                            <div class="flex justify-end space-x-2">
-                                <button class="px-3 py-1 bg-ocean bg-opacity-30 text-white rounded-lg text-xs">
-                                    查看物流
-                                </button>
-                                <button class="px-3 py-1 bg-lavender text-white rounded-lg text-xs">
-                                    确认收货
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- 已完成订单 -->
-                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4">
-                            <div class="flex justify-between items-center mb-3">
-                                <p class="text-soft-lavender text-xs">订单号：SL20230510002</p>
-                                <p class="text-green-400 text-sm">已完成</p>
-                            </div>
-                            <div class="border-b border-ocean border-opacity-30 pb-3 mb-3">
-                                <div class="flex mb-3">
-                                    <div class="w-16 h-16 rounded-xl bg-cover bg-center mr-3 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1584473457409-ae5c91d7d8b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
-                                    <div class="flex-1">
-                                        <h3 class="text-white text-sm font-medium mb-1">助眠香薰精油</h3>
-                                        <p class="text-soft-lavender text-xs mb-1">薰衣草+洋甘菊</p>
-                                        <div class="flex justify-between">
-                                            <p class="text-white text-sm">¥129</p>
-                                            <p class="text-soft-lavender text-xs">x2</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mb-3">
-                                <p class="text-soft-lavender text-xs">2023-05-10 09:15</p>
-                                <p class="text-white text-sm">共2件商品 合计：<span class="font-medium">¥258</span></p>
-                            </div>
-                            <div class="flex justify-end space-x-2">
-                                <button class="px-3 py-1 bg-ocean bg-opacity-30 text-white rounded-lg text-xs">
-                                    查看详情
-                                </button>
-                                <button class="px-3 py-1 bg-lavender text-white rounded-lg text-xs">
-                                    再次购买
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- 待付款订单 -->
-                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4">
-                            <div class="flex justify-between items-center mb-3">
-                                <p class="text-soft-lavender text-xs">订单号：SL20230522003</p>
-                                <p class="text-yellow-400 text-sm">待付款</p>
-                            </div>
-                            <div class="border-b border-ocean border-opacity-30 pb-3 mb-3">
-                                <div class="flex mb-3">
-                                    <div class="w-16 h-16 rounded-xl bg-cover bg-center mr-3 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1631772559162-37b75a2d6235?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80')"></div>
-                                    <div class="flex-1">
-                                        <h3 class="text-white text-sm font-medium mb-1">静音白噪音机</h3>
-                                        <p class="text-soft-lavender text-xs mb-1">10种自然声音</p>
-                                        <div class="flex justify-between">
-                                            <p class="text-white text-sm">¥259</p>
-                                            <p class="text-soft-lavender text-xs">x1</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mb-3">
-                                <p class="text-soft-lavender text-xs">2023-05-22 16:45</p>
-                                <p class="text-white text-sm">共1件商品 合计：<span class="font-medium">¥259</span></p>
-                            </div>
-                            <div class="flex justify-end space-x-2">
-                                <button class="px-3 py-1 bg-ocean bg-opacity-30 text-white rounded-lg text-xs">
-                                    取消订单
-                                </button>
-                                <button class="px-3 py-1 bg-lavender text-white rounded-lg text-xs">
-                                    去付款
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 物流跟踪弹窗 -->
-                    <div class="fixed inset-0 bg-deep-blue bg-opacity-80 flex items-center justify-center z-20 px-6">
-                        <div class="bg-midnight bg-opacity-90 backdrop-blur-sm rounded-3xl p-5 w-full max-w-md">
-                            <div class="flex justify-between items-center mb-4">
-                                <h2 class="text-lg font-medium text-white">物流跟踪</h2>
-                                <button class="w-8 h-8 rounded-full bg-ocean bg-opacity-30 flex items-center justify-center text-white">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-soft-lavender text-xs mb-1">订单号：SL20230521001</p>
-                                <p class="text-white text-sm">物流单号：SF1234567890</p>
-                            </div>
-                            <div class="space-y-4 mb-4">
-                                <div class="flex">
-                                    <div class="mr-3 flex flex-col items-center">
-                                        <div class="w-6 h-6 rounded-full bg-lavender flex items-center justify-center text-white text-xs">
-                                            <i class="fas fa-check"></i>
-                                        </div>
-                                        <div class="w-0.5 h-12 bg-lavender bg-opacity-30"></div>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-sm font-medium">包裹已由配送员签收</p>
-                                        <p class="text-soft-lavender text-xs">2023-05-22 14:30</p>
-                                        <p class="text-soft-lavender text-xs">配送员：张师傅 电话：138****5678</p>
-                                    </div>
-                                </div>
-                                <div class="flex">
-                                    <div class="mr-3 flex flex-col items-center">
-                                        <div class="w-6 h-6 rounded-full bg-lavender flex items-center justify-center text-white text-xs">
-                                            <i class="fas fa-check"></i>
-                                        </div>
-                                        <div class="w-0.5 h-12 bg-lavender bg-opacity-30"></div>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-sm font-medium">包裹已到达配送站</p>
-                                        <p class="text-soft-lavender text-xs">2023-05-22 08:15</p>
-                                        <p class="text-soft-lavender text-xs">北京海淀区中关村配送站</p>
-                                    </div>
-                                </div>
-                                <div class="flex">
-                                    <div class="mr-3 flex flex-col items-center">
-                                        <div class="w-6 h-6 rounded-full bg-lavender flex items-center justify-center text-white text-xs">
-                                            <i class="fas fa-check"></i>
-                                        </div>
-                                        <div class="w-0.5 h-12 bg-lavender bg-opacity-30"></div>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-sm font-medium">包裹已发出</p>
-                                        <p class="text-soft-lavender text-xs">2023-05-21 18:40</p>
-                                        <p class="text-soft-lavender text-xs">上海仓库</p>
-                                    </div>
-                                </div>
-                                <div class="flex">
-                                    <div class="mr-3 flex flex-col items-center">
-                                        <div class="w-6 h-6 rounded-full bg-lavender flex items-center justify-center text-white text-xs">
-                                            <i class="fas fa-check"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <p class="text-white text-sm font-medium">订单已确认</p>
-                                        <p class="text-soft-lavender text-xs">2023-05-21 14:30</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="w-full py-2 bg-lavender text-white rounded-xl text-sm font-medium">
-                                确认收货
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 会员订阅页面 -->
-            <div class="screen">
-                <!-- 背景图片 -->
-                <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="星空背景" class="full-bg">
-                <div class="overlay"></div>
-                
-                <!-- 状态栏 -->
-                <div class="status-bar">
-                    <div class="text-sm font-semibold text-white">9:41</div>
-                    <div class="flex space-x-2 text-white">
-                        <i class="fas fa-signal"></i>
-                        <i class="fas fa-wifi"></i>
-                        <i class="fas fa-battery-full"></i>
-                    </div>
-                </div>
-                
-                <!-- 内容区域 -->
-                <div class="content px-6 py-4">
-                    <!-- 顶部导航 -->
-                    <div class="flex items-center mb-6">
-                        <button class="w-10 h-10 rounded-full bg-ocean bg-opacity-30 backdrop-blur-sm flex items-center justify-center text-white mr-4">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                        <h1 class="text-2xl font-light text-white">会员订阅</h1>
-                    </div>
-                    
-                    <!-- 会员状态 -->
-                    <div class="bg-gradient-to-r from-lavender to-light-lavender rounded-3xl p-5 mb-6">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-lavender mr-4">
-                                <i class="fas fa-crown text-xl"></i>
-                            </div>
-                            <div>
-                                <h2 class="text-white text-lg font-medium">高级会员</h2>
-                                <p class="text-white text-opacity-80 text-sm">有效期至2023年12月31日</p>
-                            </div>
-                        </div>
-                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-3 mb-4">
-                            <div class="flex justify-between items-center">
-                                <p class="text-white text-sm">会员特权使用情况</p>
-                                <p class="text-white text-sm">8/30</p>
-                            </div>
-                            <div class="w-full h-1.5 bg-white bg-opacity-20 rounded-full mt-2">
-                                <div class="h-full bg-white rounded-full" style="width: 27%;"></div>
-                            </div>
-                        </div>
-                        <button class="w-full py-2 bg-white text-lavender rounded-xl text-sm font-medium">
-                            续费会员
-                        </button>
-                    </div>
-                    
-                    <!-- 会员计划 -->
-                    <h2 class="text-lg font-medium text-white mb-4">选择会员计划</h2>
-                    <div class="space-y-4 mb-6">
-                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4 border-2 border-lavender">
-                            <div class="flex justify-between items-start mb-3">
-                                <div>
-                                    <h3 class="text-white font-medium mb-1">年度会员</h3>
-                                    <p class="text-soft-lavender text-xs">¥298/年，相当于¥24.8/月</p>
-                                </div>
-                                <div class="bg-lavender text-white text-xs px-2 py-1 rounded-full">
-                                    推荐
-                                </div>
-                            </div>
-                            <div class="space-y-2 mb-3">
-                                <div class="flex items-center">
-                                    <i class="fas fa-check text-lavender text-xs mr-2"></i>
-                                    <p class="text-white text-sm">无限制使用所有助眠声音</p>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-check text-lavender text-xs mr-2"></i>
-                                    <p class="text-white text-sm">专业睡眠分析报告</p>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-check text-lavender text-xs mr-2"></i>
-                                    <p class="text-white text-sm">会员专享音频内容</p>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-check text-lavender text-xs mr-2"></i>
-                                    <p class="text-white text-sm">商城会员专享折扣</p>
-                                </div>
-                            </div>
-                            <button class="w-full py-2 bg-lavender text-white rounded-xl text-sm font-medium">
-                                立即订阅
-                            </button>
-                        </div>
-                        
-                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4">
-                            <div class="flex justify-between items-start mb-3">
-                                <div>
-                                    <h3 class="text-white font-medium mb-1">季度会员</h3>
-                                    <p class="text-soft-lavender text-xs">¥98/季，相当于¥32.7/月</p>
-                                </div>
-                            </div>
-                            <div class="space-y-2 mb-3">
-                                <div class="flex items-center">
-                                    <i class="fas fa-check text-lavender text-xs mr-2"></i>
-                                    <p class="text-white text-sm">无限制使用所有助眠声音</p>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-check text-lavender text-xs mr-2"></i>
-                                    <p class="text-white text-sm">专业睡眠分析报告</p>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-check text-lavender text-xs mr-2"></i>
-                                    <p class="text-white text-sm">会员专享音频内容</p>
-                                </div>
-                            </div>
-                            <button class="w-full py-2 bg-ocean bg-opacity-30 text-white rounded-xl text-sm font-medium">
-                                立即订阅
-                            </button>
-                        </div>
-                        
-                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4">
-                            <div class="flex justify-between items-start mb-3">
-                                <div>
-                                    <h3 class="text-white font-medium mb-1">月度会员</h3>
-                                    <p class="text-soft-lavender text-xs">¥38/月</p>
-                                </div>
-                            </div>
-                            <div class="space-y-2 mb-3">
-                                <div class="flex items-center">
-                                    <i class="fas fa-check text-lavender text-xs mr-2"></i>
-                                    <p class="text-white text-sm">无限制使用所有助眠声音</p>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-check text-lavender text-xs mr-2"></i>
-                                    <p class="text-white text-sm">专业睡眠分析报告</p>
-                                </div>
-                            </div>
-                            <button class="w-full py-2 bg-ocean bg-opacity-30 text-white rounded-xl text-sm font-medium">
-                                立即订阅
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- 会员特权 -->
-                    <h2 class="text-lg font-medium text-white mb-4">会员特权</h2>
-                    <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-xl p-3">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mb-2">
-                                <i class="fas fa-volume-up"></i>
-                            </div>
-                            <h3 class="text-white text-sm font-medium mb-1">全部声音</h3>
-                            <p class="text-soft-lavender text-xs">解锁所有助眠声音和冥想内容</p>
-                        </div>
-                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-xl p-3">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mb-2">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <h3 class="text-white text-sm font-medium mb-1">专业分析</h3>
-                            <p class="text-soft-lavender text-xs">获取详细的睡眠分析报告和建议</p>
-                        </div>
-                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-xl p-3">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mb-2">
-                                <i class="fas fa-download"></i>
-                            </div>
-                            <h3 class="text-white text-sm font-medium mb-1">离线下载</h3>
-                            <p class="text-soft-lavender text-xs">下载音频内容，随时随地使用</p>
-                        </div>
-                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-xl p-3">
-                            <div class="w-10 h-10 rounded-full bg-lavender bg-opacity-30 flex items-center justify-center text-lavender mb-2">
-                                <i class="fas fa-tag"></i>
-                            </div>
-                            <h3 class="text-white text-sm font-medium mb-1">专享折扣</h3>
-                            <p class="text-soft-lavender text-xs">商城产品会员专享价格</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 常见问题 -->
-                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                        <h2 class="text-lg font-medium text-white mb-4">常见问题</h2>
-                        <div class="space-y-3">
-                            <div class="border-b border-ocean border-opacity-30 pb-3">
-                                <div class="flex justify-between items-center">
-                                    <p class="text-white font-medium">如何取消自动续费？</p>
-                                    <i class="fas fa-chevron-down text-soft-lavender"></i>
-                                </div>
-                                <p class="text-soft-lavender text-sm mt-2">您可以在"设置-会员管理-取消自动续费"中关闭自动续费功能。取消后，您仍可以使用当前会员周期内的所有特权。</p>
-                            </div>
-                            <div class="border-b border-ocean border-opacity-30 pb-3">
-                                <div class="flex justify-between items-center">
-                                    <p class="text-white font-medium">会员可以在多少设备上使用？</p>
-                                    <i class="fas fa-chevron-down text-soft-lavender"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between items-center">
-                                    <p class="text-white font-medium">如何获得发票？</p>
-                                    <i class="fas fa-chevron-down text-soft-lavender"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <p class="text-soft-lavender text-xs text-center mb-6">
-                        订阅即表示您同意我们的<a href="#" class="text-lavender">服务条款</a>和<a href="#" class="text-lavender">隐私政策</a>
-                    </p>
-                </div>
-            </div>
-            
-            <!-- 搜索页面 -->
-            <div class="screen">
-                <!-- 背景图片 -->
-                <img src="https://images.unsplash.com/photo-1532767153582-b1a0e5145009?ixlib=rb-1.2.1&auto=format&fit=crop&w=375&h=812&q=80" alt="星空背景" class="full-bg">
-                <div class="overlay"></div>
-                
-                <!-- 状态栏 -->
-                <div class="status-bar">
-                    <div class="text-sm font-semibold text-white">9:41</div>
-                    <div class="flex space-x-2 text-white">
-                        <i class="fas fa-signal"></i>
-                        <i class="fas fa-wifi"></i>
-                        <i class="fas fa-battery-full"></i>
-                    </div>
-                </div>
-                
-                <!-- 内容区域 -->
-                <div class="content px-6 py-4">
-                    <!-- 搜索栏 -->
-                    <div class="flex items-center mb-6">
-                        <div class="flex-1 bg-ocean bg-opacity-30 backdrop-blur-sm rounded-full px-4 py-2 flex items-center mr-3">
-                            <i class="fas fa-search text-soft-lavender mr-2"></i>
-                            <input type="text" placeholder="搜索产品、声音或内容" class="bg-transparent text-white w-full focus:outline-none placeholder-soft-lavender" value="白噪音">
-                            <button class="text-soft-lavender">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                        <button class="text-white">
-                            取消
-                        </button>
-                    </div>
-                    
-                    <!-- 搜索结果分类 -->
-                    <div class="flex space-x-2 mb-6 overflow-x-auto pb-2">
-                        <button class="px-4 py-2 bg-lavender text-white rounded-full text-sm whitespace-nowrap">全部</button>
-                        <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">声音</button>
-                        <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">产品</button>
-                        <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">课程</button>
-                        <button class="px-4 py-2 bg-ocean bg-opacity-30 backdrop-blur-sm text-white rounded-full text-sm whitespace-nowrap">文章</button>
-                    </div>
-                    
-                    <!-- 搜索结果 -->
-                    <p class="text-soft-lavender text-sm mb-4">找到 15 个结果</p>
-                    
-                    <!-- 声音结果 -->
-                    <h2 class="text-lg font-medium text-white mb-4">声音</h2>
-                    <div class="space-y-4 mb-6">
-                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4 flex">
-                            <div class="w-16 h-16 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1498496294664-d9372eb521f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
-                            <div class="flex-1">
-                                <h3 class="text-white font-medium mb-1">雨林白噪音</h3>
-                                <p class="text-soft-lavender text-xs mb-2">热带雨林的自然声音，帮助你快速入睡</p>
-                                <div class="flex items-center">
-                                    <div class="text-yellow-400 text-xs mr-1">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <span class="text-xs text-soft-lavender">(328)</span>
-                                </div>
-                            </div>
-                            <button class="w-10 h-10 rounded-full bg-lavender flex items-center justify-center text-white ml-2">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
-                        <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4 flex">
-                            <div class="w-16 h-16 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
-                            <div class="flex-1">
-                                <h3 class="text-white font-medium mb-1">海浪白噪音</h3>
-                                <p class="text-soft-lavender text-xs mb-2">舒缓的海浪声，让你如同在海边入睡</p>
-                                <div class="flex items-center">
-                                    <div class="text-yellow-400 text-xs mr-1">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <span class="text-xs text-soft-lavender">(512)</span>
-                                </div>
-                            </div>
-                            <button class="w-10 h-10 rounded-full bg-lavender flex items-center justify-center text-white ml-2">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- 产品结果 -->
-                    <h2 class="text-lg font-medium text-white mb-4">产品</h2>
-                    <div class="flex overflow-x-auto space-x-4 pb-4 mb-6">
-                        <div class="search-item">
-                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl overflow-hidden mb-2">
-                                <img src="https://images.unsplash.com/photo-1631772559162-37b75a2d6235?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=160&q=80" alt="白噪音机" class="w-full h-40 object-cover">
-                                <div class="p-3">
-                                    <h3 class="text-white font-medium text-sm mb-1">静音白噪音机</h3>
-                                    <p class="text-soft-lavender text-xs mb-2">10种自然声音</p>
-                                    <div class="flex justify-between items-center">
-                                        <p class="text-white font-medium">¥259</p>
-                                        <button class="w-8 h-8 rounded-full bg-lavender flex items-center justify-center text-white">
-                                            <i class="fas fa-plus text-xs"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="search-item">
-                            <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl overflow-hidden mb-2">
-                                <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=160&h=160&q=80" alt="智能睡眠监测器" class="w-full h-40 object-cover">
-                                <div class="p-3">
-                                    <h3 class="text-white font-medium text-sm mb-1">智能睡眠监测器</h3>
-                                    <p class="text-soft-lavender text-xs mb-2">内置白噪音功能</p>
-                                    <div class="flex justify-between items-center">
-                                        <p class="text-white font-medium">¥299</p>
-                                        <button class="w-8 h-8 rounded-full bg-lavender flex items-center justify-center text-white">
-                                            <i class="fas fa-plus text-xs"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 课程结果 -->
-                    <h2 class="text-lg font-medium text-white mb-4">课程</h2>
-                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-2xl p-4 flex mb-6">
-                        <div class="w-16 h-16 rounded-xl bg-cover bg-center mr-4 flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1511295742362-92c96b1cf484?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80')"></div>
-                        <div class="flex-1">
-                            <h3 class="text-white font-medium mb-1">声音疗愈入门</h3>
-                            <p class="text-soft-lavender text-xs mb-2">探索不同声音对睡眠的影响，包括白噪音、自然声音和音乐</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <div class="text-yellow-400 text-xs mr-1">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <span class="text-xs text-soft-lavender">(86)</span>
-                                </div>
-                                <p class="text-white font-medium">¥99</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 搜索历史 -->
-                    <div class="bg-midnight bg-opacity-60 backdrop-blur-sm rounded-3xl p-5 mb-6">
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-lg font-medium text-white">搜索历史</h2>
-                            <button class="text-soft-lavender text-sm">
-                                清除
-                            </button>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <div class="bg-ocean bg-opacity-30 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm">
-                                冥想
-                            </div>
-                            <div class="bg-ocean bg-opacity-30 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm">
-                                失眠
-                            </div>
-                            <div class="bg-ocean bg-opacity-30 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm">
-                                雨声
-                            </div>
-                            <div class="bg-ocean bg-opacity-30 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm">
-                                助眠精油
-                            </div>
-                            <div class="bg-ocean bg-opacity-30 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm">
-                                睡眠监测
-                            </div>
-                        </div>
+                <div class="rounded-lg overflow-hidden cursor-pointer">
+                    <img src="https://public.readdy.ai/ai/img_res/e447bcce3dd4e2881ef41eb087b7e5ef.jpg" 
+                         class="w-full h-[120px] object-cover" alt="Ocean Waves">
+                    <div class="p-2">
+                        <h3 class="font-medium text-sm">Ocean Waves</h3>
+                        <p class="text-xs text-gray-500">Nature • Premium</p>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
-    </html>
+    </main>
+
+    <script>
+        let isPlaying = false;
+        let progress = 0;
+        const playButton = document.getElementById('playButton');
+        const progressBar = document.getElementById('progress');
+        const currentTimeEl = document.getElementById('currentTime');
+        playButton.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            playButton.innerHTML = isPlaying ? 
+                '<i class="ri-pause-fill text-white text-xl"></i>' : 
+                '<i class="ri-play-fill text-white text-xl"></i>';
+            
+            if (isPlaying) {
+                playButton.classList.remove('pulse');
+                startProgress();
+            } else {
+                playButton.classList.add('pulse');
+                stopProgress();
+            }
+        });
+        let progressInterval;
+
+        function startProgress() {
+            progressInterval = setInterval(() => {
+                progress += 0.1;
+                if (progress > 100) {
+                    progress = 0;
+                    isPlaying = false;
+                    playButton.innerHTML = '<i class="ri-play-fill text-white text-xl"></i>';
+                    playButton.classList.add('pulse');
+                    stopProgress();
+                }
+                progressBar.style.width = `${progress}%`;
+                updateTime();
+            }, 100);
+        }
+
+        function stopProgress() {
+            clearInterval(progressInterval);
+        }
+
+        function updateTime() {
+            const totalSeconds = Math.floor((progress / 100) * 28800);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            currentTimeEl.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+    </script>
+</body>
+</html>
